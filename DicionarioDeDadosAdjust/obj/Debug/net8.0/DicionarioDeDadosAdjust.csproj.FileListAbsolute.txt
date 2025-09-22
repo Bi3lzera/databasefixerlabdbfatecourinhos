@@ -54,3 +54,4 @@ C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Deb
 C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.pdb
 C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.genruntimeconfig.cache
 C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\ref\DicionarioDeDadosAdjust.dll
+C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.sourcelink.json

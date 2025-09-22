@@ -1,48 +1,87 @@
+using System.Runtime.InteropServices;
+
 namespace DicionarioDeDadosAdjust
 {
     public class App
     {
+        //Ponto de partida da aplicação.
         public static void Run()
         {
-            List<Tabela> tabelas = new List<Tabela>(); //Intancia a lista de tabelas que será armazenado os dados de todas as tabelas, junto de suas colunas e FKs
+            List<Tabela> tabelas = new List<Tabela>(); //Intancia a lista de tabelas que será armazenado os dados de todas as tabelas, junto de suas colunas e FKs.
 
-            //Loop para buscar todas as tabelas com suas respectivas colunas até que a entrada seja "4321" que indica a finalização da inserção de tabelas
+            //Loop para buscar todas as tabelas com suas respectivas colunas até que a entrada seja "4321" que indica a finalização da inserção de tabelas.
             while (true)
             {
-                tabelas.Add(LoadTable()); //Solicita e insere uma nova tabela a lista
-
-                if (Console.ReadLine().Split("	")[0] == "4321") //Caso haja entrada no console com o número "4321" encerra o loop. (Para continuar, pasta inserir uma entrada vazia ou um enter)
-                    break; //Comando para encerrar o loop caso a condição acima seja true;
+                string[]? fileStrings = GetInsertFile("dicionario");
+                if (fileStrings != null)
+                {
+                    List<string> tableTxt = new List<string>();
+                    foreach (string s in fileStrings)
+                    {
+                        if (s.Split("	")[0] != "")
+                        {
+                            tableTxt.Add(s);
+                        }
+                        else
+                        {
+                            tableTxt.Add(s);
+                            tabelas.Add(LoadTable(tableTxt));
+                            tableTxt.RemoveRange(0, tableTxt.Count);
+                        }
+                        Console.WriteLine(s);
+                    }
+                    break;
+                }
+                else
+                {
+                    tabelas.Add(LoadTable(null)); //Solicita e insere uma nova tabela a lista
+                }
+                
+                if (Console.ReadLine()?.Split("	")[0] == "4321") //Caso haja entrada no console com o número "4321" encerra o loop. (Para continuar, pasta inserir uma entrada vazia ou um enter).
+                    break; //Comando para encerrar o loop caso a condição acima seja true.
             }
 
             tabelas = LoadFKTable(tabelas); //Solicita e correga nas tabelas a tabela Foreign Key (FK). A tabela irá carregar a FK já em todas as tabelas anteriormente cadastradas.
 
-            Console.WriteLine(tabelas[0].foreignKeys.Count); //Dump de variáveis 
-            Console.WriteLine(tabelas[0].foreignKeys[0].name); //Dump de variáveis
+            Console.WriteLine(tabelas[0].foreignKeys.Count); //Dump de variáveis.
+            Console.WriteLine(tabelas[0].foreignKeys[0].name); //Dump de variáveis.
 
             GenerateSQL(tabelas); //Gera o SQL das tabelas carregadas.
         }
 
-        //Busca os dados e carrega a Tabela, com dados da Tabela e suas Colunas
-        public static Tabela LoadTable()
+        //Busca os dados e carrega a Tabela, com dados da Tabela e suas Colunas.
+        public static Tabela LoadTable(List<string>? tableTxt)
         {
-            Tabela t = new Tabela(); //Instancia uma tabela temporária que será retornada
+            Tabela t = new Tabela(); //Instancia uma tabela temporária que será retornada.
 
             Console.WriteLine("Cole o cabeçalho da tabela:");
-            string cabecalho = Console.ReadLine(); //Busca os dados BRUTOS do cabeçalho
-            string[] fCabecalho = cabecalho.Split("	", 2); //Refina os dados de entrada do cabeçalho
-            while (true) //Inicia o loop para buscar todas as colunas da tabela, o loop finaliza com uma entrada vazia de dados ou enter
+            string? cabecalho;
+            if (tableTxt == null)
+                cabecalho = Console.ReadLine();
+            else
+                cabecalho = tableTxt[0]; //Busca os dados BRUTOS do cabeçalho.
+
+            if (cabecalho == null) //Evita de tentar cadastar um cabeçalho sem dados.
+                return t; //Retorna uma tabela vazia.
+
+            string[] fCabecalho = cabecalho.Split("	", 2); //Refina os dados de entrada do cabeçalho.
+            for (int i = 1; true; i++) //Inicia o loop para buscar todas as colunas da tabela, o loop finaliza com uma entrada vazia de dados ou enter.
             {
                 Console.WriteLine("Cole os dados da tabela:");
-                string input = Console.ReadLine(); //Entrada de cada linha contendo os dados da coluna (DADOS BRUTOS)
-                if (input.Split("	")[0] == "") //Verifica se a entrada é vazia para encerrar o loop.
-                    break; //Encerra o loop caso condição acima = true;
+                string? input;
+                if (tableTxt == null)
+                    input = Console.ReadLine();
+                else
+                    input = tableTxt[i]; //Entrada de cada linha contendo os dados da coluna (DADOS BRUTOS).
 
-                string[] fInput = input.Split("	"); //Refina os dados da variável input em colunas para um array
-                Column tColumn = new Column(); //instancia um objeto coluna temporário para preencher as colunas de uma tabela.
+                if (input == null || input.Split("	")[0] == "") //Verifica se a entrada é nula ou vazia para encerrar o loop.
+                    break; //Encerra o loop caso condição acima = true.
 
-                //Tenta inserir os dados na coluna temporária criada, 
-                //caso algum dado esteja incorreto ou de forma errada, 
+                string[] fInput = input.Split("	"); //Refina os dados da variável input em colunas para um array.
+                Column tColumn = new Column(); //Instancia um objeto coluna temporário para preencher as colunas de uma tabela.
+
+                //Tenta inserir os dados na coluna temporária criada,
+                //caso algum dado esteja incorreto ou de forma errada,
                 //aqui gerará uma exceção, mas não irá interromper o app.
                 try
                 {
@@ -53,21 +92,21 @@ namespace DicionarioDeDadosAdjust
                     tColumn.required = fInput[4];
                     tColumn.comment = fInput[5];
                 }
-                catch (Exception ex) //Catch da possível exceção gerada
+                catch (Exception ex) //Catch da possível exceção gerada.
                 {
-                    Console.WriteLine(ex); //Dump no console da exceção gerada
+                    Console.WriteLine(ex); //Dump no console da exceção gerada.
                 }
                 finally //Finalmente adiciona os dados captados a coluna temporária criada. Mas somente caso as colunas Pos e Nome não sejam nulas.
                 {
                     if (tColumn.pos != 0 && tColumn.name != null) //Verifica se as colunas são nulas.
-                        t.columns.Add(tColumn); //Se não forem nulas, adiciona os dados dessa coluna a variável colunas da lista tabelas
+                        t.columns.Add(tColumn); //Se não forem nulas, adiciona os dados dessa coluna a variável colunas da lista tabelas.
                 }
             }
 
-            t.name = fCabecalho[0].Split(" ")[1]; //Adicioan os dados (NOME DA TABELA) de cabeçalho da tabela
-            t.comment = fCabecalho[1].Substring(13); //Adicioan os dados (COMENTÁRIO DA TABELA) de cabeçalho da tabela
+            t.name = fCabecalho[0].Split(" ")[1]; //Adicioan os dados (NOME DA TABELA) de cabeçalho da tabela.
+            t.comment = fCabecalho[1].Substring(13); //Adicioan os dados (COMENTÁRIO DA TABELA) de cabeçalho da tabela.
 
-            return t; //Retorna a tabela criada e preenchida
+            return t; //Retorna a tabela criada e preenchida.
         }
 
         //Função criada para carregar as Foreign Key da tabela.
@@ -78,33 +117,36 @@ namespace DicionarioDeDadosAdjust
         public static List<Tabela> LoadFKTable(List<Tabela> tabelas)
         {
             Console.WriteLine("Cole a tabela de FKs:");
-            string actualTable = ""; //Cria uma variável para armazenar o nome da tabela atual que está sendo criada as FKs;
-            while (true) //Inicia o loop para buscar cada linha da tabela que está criando as FKs
+            string[]? fileStrings = GetInsertFile("fktable");
+            string actualTable = ""; //Cria uma variável para armazenar o nome da tabela atual que está sendo criada as FKs.
+            for (int i = 0; true; i++) //Inicia o loop para buscar cada linha da tabela que está criando as FKs.
             {
-                string input = Console.ReadLine(); //Capta a linha de dados (BRUTO).
-                if (input == "") //Identifica se a entrada de dados é vazia, para interromper a aplicação.
-                    break; //Interrompe a aplicação, caso condição acima seja true.
+                string? input;
+                if (fileStrings == null) //Capta a linha de dados (BRUTO).
+                    input = Console.ReadLine();
+                else
+                    input = fileStrings[i];
 
-                if (input == null || input.Split("	")[0] == "") //Identifica se a entrada de dados é vazia, para interromper a aplicação.
+                if (input == null || input.Split("	")[0] == "") //Identifica se a entrada de dados é nula ou vazia, para interromper a aplicação.
                     break; //Interrompe a aplicação, caso condição acima seja true.
 
                 string[] fInput = input.Split("	"); //Refina os dados brutos captados na input.
 
                 ForeignKey fk = new ForeignKey(); //Instancia um objeto ForeignKey temporário.
 
-                try //Tenta adicionar os dados a tabela temporária fk;
+                try //Tenta adicionar os dados a tabela temporária fk.
                 {
                     //Condição para verificar se a atual linha sendo verificada se trata do cabeçalho de uma tabela,
-                    //caso sim, essa nova tabela será armazenada na variável actuLTable.
+                    //caso sim, essa nova tabela será armazenada na variável actualTable.
                     //Essa verificação é necessária para que o programa sempre saiba qual tabela é atual,
                     //para que seja possível posteriormente identificar de qual tabela é as FKs identificadas.
                     if (fInput[0].Split(' ')[0].StartsWith("Tabela"))
                     {
-                        actualTable = fInput[0].Split(' ')[1];
+                        actualTable = fInput[0].Split(' ')[1]; //Armazena o nome da tabel atual na variável actualTable.
                     }
-                    else //Caso não seja o cabeçalho de uma tabela, o algoritmo irá tentar armazenar a atual linha na tabela temporária fk
+                    else //Caso não seja o cabeçalho de uma tabela, o algoritmo irá tentar armazenar a atual linha na tabela temporária fk.
                     {
-                        if (fInput[0] == "Nome") //Condição para verificar simplesmente se a linha atual é o cabeçalho da coluna. Exite jeito melhor de fazer, mas esse funciona :).
+                        if (fInput[0] == "Nome") //Condição para verificar simplesmente se a linha atual é o cabeçalho da coluna. Provavelmente existe jeito melhor de fazer, mas esse funciona :).
                             continue; //Continua o loop e não passa pelas linhas a seguir.
 
                         //Armazena os dados nas variáveis da tabela fk e faz as devidas verificações para saber quais dados armazenar.
@@ -116,22 +158,22 @@ namespace DicionarioDeDadosAdjust
                         fk.campoReference = fInput[8];
 
                         if (fInput[2].ToLower() == "yes")
-                            fk.deferable = "DEFERRABLE";
+                            fk.deferrable = "DEFERRABLE";
                         else
-                            fk.deferable = String.Empty;
+                            fk.deferrable = String.Empty;
                         if (fInput[3].ToLower() == "yes")
-                            fk.deferade = "INITIALLY DEFERRED";
+                            fk.deferrade = "INITIALLY DEFERRED";
                         else
-                            fk.deferable = String.Empty;
+                            fk.deferrable = String.Empty;
                         if (fInput[4].ToLower() == "simple")
                             fk.type = "MATCH SIMPLE";
                         else
                             fk.type = "MATCH FULL";
 
-                        //Loop para procurar a tabela atual, na lista de tabelas fornecida na construção desta função
+                        //Loop para procurar a tabela atual, na lista de tabelas fornecida na construção desta função.
                         foreach (var tabela in tabelas)
                         {
-                            if (tabela.name == actualTable) //Quando identificar a tabela
+                            if (tabela.name == actualTable) //Quando identificar a tabela.
                             {
                                 tabela.foreignKeys.Add(fk); //armazena nela usando a tabela temporária fk.
                                 Console.WriteLine(
@@ -151,7 +193,7 @@ namespace DicionarioDeDadosAdjust
             return tabelas; //Retorna as tabela fornecidas, já ajustadas com as tabelas FKs.
         }
 
-        //Função para gerar o SQL com a Lista de tabelas já ajustadas. 
+        //Função para gerar o SQL com a Lista de tabelas já ajustadas.
         public static void GenerateSQL(List<Tabela> tabelas)
         {
             string fullSql = ""; //Variável principal que irá armazenar todo o SQL.
@@ -162,8 +204,8 @@ namespace DicionarioDeDadosAdjust
             //Porém, recomenda-se que a database esteja limpa.
             foreach (var tabela in tabelas)
             {
-                string sql = $"\n\n\nDROP TABLE IF EXISTS public.{tabela.name} CASCADE;\n\n"; //Drop na table, caso ela já exista
-                sql += $"CREATE TABLE public.{tabela.name} (\n"; //Cria a tabela
+                string sql = $"\n\n\nDROP TABLE IF EXISTS public.{tabela.name} CASCADE;\n\n"; //Drop na table, caso ela já exista.
+                sql += $"CREATE TABLE public.{tabela.name} (\n"; //Cria a tabela.
                 //Cria as colunas, o loop percorre todas listadas na ATUAL tabela.
                 foreach (var col in tabela.columns)
                 {
@@ -187,12 +229,12 @@ namespace DicionarioDeDadosAdjust
                     sql += "\n";
                 }
 
-                sql += $"\n);"; //Finaliza o create table;
+                sql += $"\n);"; //Finaliza o create table.
 
-                sql += $"\n\nALTER TABLE public.{tabela.name} OWNER TO postgres;"; //Garante que tabela será vinculada a DB postgres;
+                sql += $"\n\nALTER TABLE public.{tabela.name} OWNER TO postgres;"; //Garante que tabela será vinculada a DB postgres.
 
-                sql += $"\n\nCOMMENT ON TABLE public.{tabela.name} IS '{tabela.comment}';"; //Gera o comentário da atual tabela (COMENTÁRIO DA TABELA);
-                
+                sql += $"\n\nCOMMENT ON TABLE public.{tabela.name} IS '{tabela.comment}';"; //Gera o comentário da atual tabela (COMENTÁRIO DA TABELA).
+
                 //Loop para gerar os comentários, de cada tabela.
                 foreach (var col in tabela.columns)
                 {
@@ -210,12 +252,14 @@ namespace DicionarioDeDadosAdjust
             //Foi criado esse loop, exatamente nesse local, pois é exatamente no local do SQL que ele deve estar, se ele for executado depois de ter
             //criado as PKs e FKs, terá muitos erros de FK não encontrada. Até dá para corrigir isso, colocando os inserts nas posições corretas, porém,
             //isso daria MUITO mais trabalho.
-            foreach (string s in GetInsertFile())
-            {
-                fullSql += $"\n{s}";
-            }
+            string[]? fileInsertData = GetInsertFile("insert");
+            if (fileInsertData != null)
+                foreach (string s in fileInsertData)
+                {
+                    fullSql += $"\n{s}";
+                }
 
-            //Loop parar criar as Primary Key, de cada tabela. 
+            //Loop parar criar as Primary Key, de cada tabela.
             foreach (var tabela in tabelas)
             {
                 string sql = "";
@@ -255,12 +299,12 @@ namespace DicionarioDeDadosAdjust
                 foreach (var fk in tabela.foreignKeys)
                 {
                     sql +=
-                        $"\n\nALTER TABLE ONLY public.{tabela.name} ADD CONSTRAINT {fk.name} FOREIGN KEY ({fk.campo}) REFERENCES public.{fk.referenceTable}({fk.campoReference}) {fk.type} ON UPDATE {fk.onUpdate} ON DELETE {fk.onDelete} {fk.deferable} {fk.deferade};";
+                        $"\n\nALTER TABLE ONLY public.{tabela.name} ADD CONSTRAINT {fk.name} FOREIGN KEY ({fk.campo}) REFERENCES public.{fk.referenceTable}({fk.campoReference}) {fk.type} ON UPDATE {fk.onUpdate} ON DELETE {fk.onDelete} {fk.deferrable} {fk.deferrade};";
                 }
                 fullSql += sql;
             }
 
-            //Esquece isso, my mistake.
+            //Pula isso, my mistake.
             #region Old CODE, to generate FKs from column names
             /*
             foreach (var tabela in tabelas)
@@ -316,16 +360,16 @@ namespace DicionarioDeDadosAdjust
             */
             #endregion
 
+            //Chama função para escrever todo o SQL gerado nesta função, em um arquivo .txt.
             SaveToFile(fullSql);
         }
 
-        public static string[]? GetInsertFile()
+        //Função para ler um arquivo de texto e retornar um array de linhas.
+        public static string[]? GetInsertFile(string txtName)
         {
             try
             {
-                string[] fileStrings = fileStrings = File.ReadAllLines(
-                    "D:\\Documentos\\insert.txt"
-                );
+                string[] fileStrings = fileStrings = File.ReadAllLines($".\\{txtName}.txt");
                 return fileStrings;
             }
             catch (Exception ex)
@@ -335,11 +379,13 @@ namespace DicionarioDeDadosAdjust
             return null;
         }
 
-        public static void SaveToFile(String sql, string path = "D:\\Documentos\\sql.txt")
+        //Função para escrever em um arquivo txt. Neste caso, servindo para escrever o sql no arquivo sql.txt.
+        public static void SaveToFile(String sql, string path = ".\\sql.txt")
         {
             try
             {
                 File.WriteAllText(path, sql);
+                Console.WriteLine($"Arquivo salvo com sucesso no local: {path}");
             }
             catch (Exception ex)
             {
@@ -347,6 +393,7 @@ namespace DicionarioDeDadosAdjust
             }
         }
 
+        //Dump de dados.
         public static void showInConsole(List<Tabela> tabelas)
         {
             Console.WriteLine();

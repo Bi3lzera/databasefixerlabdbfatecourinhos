@@ -39,8 +39,8 @@
     {
         public string name { get; set; } = new string(string.Empty);
         public string campo { get; set; } = new string(string.Empty);
-        public string deferable { get; set; } = new string(string.Empty);
-        public string deferade { get; set; } = new string(string.Empty);
+        public string deferrable { get; set; } = new string(string.Empty);
+        public string deferrade { get; set; } = new string(string.Empty);
         public string type { get; set; } = new string(string.Empty);
         public string onUpdate { get; set; } = new string(string.Empty);
         public string onDelete { get; set; } = new string(string.Empty);

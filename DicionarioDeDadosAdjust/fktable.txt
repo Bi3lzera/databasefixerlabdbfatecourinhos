@@ -1,0 +1,341 @@
+Tabela: agencias								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1agencia	pkfkbanco	NO	NO	SIMPLE	CASCADE	RESTRICT	bancos	pkbanco
+fk2agencia	fklogradouro	NO	NO	SIMPLE	CASCADE	RESTRICT	logradouros	pklogradouro
+Tabela: agenciastels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1agenciatel	fkbanco,fkagencia	YES	YES	SIMPLE	CASCADE	CASCADE	agencias	pkfkbanco,pkagencia
+fk2agenciatel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: aplicacoesdascontas								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1aplicacaodaconta	fkbanco,fkagencia,fknuconta	YES	YES	SIMPLE	CASCADE	CASCADE	contas	pkfkbanco,pkfkagencia,pknuconta
+fk2aplicacaodaconta	fkaplicfin	YES	YES	SIMPLE	CASCADE	RESTRICT	aplicacoesfinanceiras	pkaplicfin
+Tabela: areasdeestudocursos								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1areadeestcurso	fkcurso	YES	YES	SIMPLE	CASCADE	CASCADE	cursos	pkcurso
+fk2areadeestcurso	ukceareadeestudo	YES	YES	SIMPLE	CASCADE	CASCADE	areasdeestudo	pkareadeestudo
+Tabela: areasdeestudodisciplinas								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1areadeestdiscipl	ukcedisciplina	YES	YES	SIMPLE	CASCADE	CASCADE	disciplinas	pkdisciplina
+fk2areadeestdiscipl	ukceareadeestudo	YES	YES	SIMPLE	CASCADE	CASCADE	areasdeestudo	pkareadeestudo
+Tabela: areasdeestudolivros								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1areadeestlivro	ukcelivro	YES	YES	SIMPLE	CASCADE	CASCADE	livros	pklivro
+fk2areadeestlivro	ukceareadeestudo	YES	YES	SIMPLE	CASCADE	CASCADE	areasdeestudo	pkareadeestudo
+Tabela: armazens								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1armazem	fklogradouro	YES	YES	SIMPLE	CASCADE	CASCADE	logradouros	pklogradouro
+fk2armazem	fkcliente	YES	YES	SIMPLE	CASCADE	CASCADE	clientes	pkcliente
+Tabela: armazenstels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1armazemtel	fkarmazem	YES	YES	SIMPLE	CASCADE	CASCADE	armazens	pkarmazem
+fk2armazemtel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: atribuicoes								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1atribuicao	ukceprofessor	YES	YES	SIMPLE	CASCADE	RESTRICT	professores	pkprofessor
+fk2atribuicao	ukcedisciplina	YES	YES	SIMPLE	CASCADE	RESTRICT	disciplinas	pkdisciplina
+Tabela: atuacoes								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1atuacao	ukcetarefaprojeto	YES	YES	SIMPLE	CASCADE	CASCADE	tarefasprojetos	pktarefaprojeto
+fk2atuacao	ukcefuncionario	YES	YES	SIMPLE	CASCADE	CASCADE	funcionarios	pkfuncionario
+Tabela: autores								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1autor	fklogradouro	YES	YES	SIMPLE	CASCADE	SET NULL	logradouros	pklogradouro
+Tabela: autorestels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1autortel	fkautor	YES	YES	SIMPLE	CASCADE	CASCADE	autores	pkautor
+fk2autortel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: autorias								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1autoria	ukcelivro	YES	YES	SIMPLE	CASCADE	CASCADE	livros	pklivro
+fk2autoria	ukceautor	YES	YES	SIMPLE	CASCADE	CASCADE	autores	pkautor
+Tabela: bairros								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1bairro	fkcidade	YES	YES	SIMPLE	CASCADE	RESTRICT	cidades	pkcidade
+Tabela: bairroslogradouros								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1bairrologradouro	fklogradouro	YES	YES	SIMPLE	CASCADE	CASCADE	logradouros	pklogradouro
+fk2bairrologradouro	fkbairro	YES	YES	SIMPLE	CASCADE	CASCADE	bairros	pkbairro
+Tabela: bancos								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1banco	fklogradourosede	YES	YES	SIMPLE	CASCADE	RESTRICT	logradouros	pklogradouro
+Tabela: bibliografia								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1bibliografia	ukcedisciplina	YES	YES	SIMPLE	CASCADE	CASCADE	disciplinas	pkdisciplina
+fk2bibliografia	ukcelivro	YES	YES	SIMPLE	CASCADE	CASCADE	livros	pklivro
+Tabela: capacitacoes								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1capacitacao	fkcurso	YES	YES	SIMPLE	CASCADE	CASCADE	cursos	pkcurso
+fk2capacitacao	fkfuncionario	YES	YES	SIMPLE	CASCADE	CASCADE	funcionarios	pkfuncionario
+Tabela: cidades								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1cidade	fkestadodopais	YES	YES	SIMPLE	CASCADE	RESTRICT	estadosdospaises	pkestadodopais
+Tabela: clientes								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1cliente	fklogradouro	YES	YES	SIMPLE	CASCADE	RESTRICT	logradouros	pklogradouro
+Tabela: clientestels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1clientetel	fkcliente	YES	YES	SIMPLE	CASCADE	CASCADE	clientes	pkcliente
+fk2clientetel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: consultas								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1consulta	fkfuncionario	YES	YES	SIMPLE	CASCADE	SET NULL	funcionarios	pkfuncionario
+fk2consulta	fkmedico	YES	YES	SIMPLE	CASCADE	NO ACTION	medicos	pkmedico
+fk3consulta	fkplanodesaude	YES	YES	SIMPLE	CASCADE	SET NULL	planosdesaude	pkplanodesaude
+Tabela: contas								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1conta	pkfkbanco,pkfkagencia	YES	YES	SIMPLE	CASCADE	RESTRICT	agencias	pkfkbanco,pkagencia
+fk2conta	fkfuncionario	YES	YES	SIMPLE	CASCADE	CASCADE	funcionarios	pkfuncionario
+Tabela: departamentos								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1depart	fkfuncionariogerente	YES	YES	SIMPLE	CASCADE	SET NULL	funcionarios	pkfuncionario
+fk2depart	fkdeptosuperior	YES	YES	SIMPLE	CASCADE	RESTRICT	departamentos	pkdepto
+Tabela: departamentostels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1departtel	fkdepto	YES	YES	SIMPLE	CASCADE	CASCADE	departamentos	pkdepto
+fk2departtel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: disciplinas								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1disciplina	fkcurso	YES	YES	SIMPLE	CASCADE	RESTRICT	cursos	pkcurso
+Tabela: duplicatas								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1duplicata	fknunfvenda	YES	YES	SIMPLE	CASCADE	CASCADE	nfvendas	pknunfvenda
+Tabela: editoras								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1editora	fklogradouro	YES	YES	SIMPLE	CASCADE	SET NULL	logradouros	pklogradouro
+Tabela: editorastels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1editoratel	fkeditora	YES	YES	SIMPLE	CASCADE	CASCADE	editoras	pkeditora
+fk2editoratel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: empresas								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1empresa	fklogradouro	YES	YES	SIMPLE	CASCADE	SET NULL	logradouros	pklogradouro
+Tabela: empresastels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1empresatel	fkempresa	YES	YES	SIMPLE	CASCADE	CASCADE	empresas	pkempresa
+fk2empresatel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: estadosdospaises								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1estadopais	fkpais	YES	YES	SIMPLE	CASCADE	RESTRICT	paises	pkpais
+Tabela: fabricantes								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1fabricante	fklogradouro	YES	YES	SIMPLE	CASCADE	SET NULL	logradouros	pklogradouro
+fk2fabricante	fksetoratuacao	YES	YES	SIMPLE	CASCADE	SET NULL	setoresdeatuacao	pksetoratuacao
+Tabela: fabricantestels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1fabricantetel	fkfabricante	YES	YES	SIMPLE	CASCADE	CASCADE	fabricantes	pkfabricante
+fk2fabricantetel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: faturas								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1fatura	fknunfcompra	YES	YES	SIMPLE	CASCADE	RESTRICT	nfcompras	pknunfcompra
+Tabela: fornecedores								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1fornecedor	fklogradouro	YES	YES	SIMPLE	CASCADE	SET NULL	logradouros	pklogradouro
+Tabela: fornecedorestels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1fornecedortel	fkfornecedor	YES	YES	SIMPLE	CASCADE	CASCADE	fornecedores	pkfornecedor
+fk2fornecedortel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: fornecimentos								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1fornecimento	ukceproduto	YES	YES	SIMPLE	CASCADE	CASCADE	produtos	pkproduto
+fk2fornecimento	ukcefornecedor	YES	YES	SIMPLE	CASCADE	CASCADE	fornecedores	pkfornecedor
+Tabela: funcionarios								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1funcionario	fkdepto	YES	YES	SIMPLE	CASCADE	RESTRICT	departamentos	pkdepto
+fk2funcionario	fkfuncao	YES	YES	SIMPLE	CASCADE	SET NULL	funcoes	pkfuncao
+fk3funcionario	fkgrauescolar	YES	YES	SIMPLE	CASCADE	SET NULL	grausdeescolaridade	pkgrauescolar
+fk4funcionario	fklogradouro	YES	YES	SIMPLE	CASCADE	SET NULL	logradouros	pklogradouro
+Tabela: funcionariosplanos								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1funcionarioplano	fkfuncionario	YES	YES	SIMPLE	CASCADE	CASCADE	funcionarios	pkfuncionario
+fk2funcionarioplano	fkplanodesaude	YES	YES	SIMPLE	CASCADE	CASCADE	planosdesaude	pkplanodesaude
+Tabela: funcionariostels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1funcionariotel	fkfuncionario	YES	YES	SIMPLE	CASCADE	CASCADE	funcionarios	pkfuncionario
+fk2funcionariotel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: grausdeescolaridade								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1grauescolar	fkgrausprerequisitos	YES	YES	SIMPLE	CASCADE	RESTRICT	grausdeescolaridade	pkgrauescolar
+Tabela: habilitacoes								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1habilitacao	fkcurso	YES	YES	SIMPLE	CASCADE	CASCADE	cursos	pkcurso
+fk2habilitacao	fkprofessor	YES	YES	SIMPLE	CASCADE	CASCADE	professores	pkprofessor
+Tabela: historicoprofissional								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1histprof	fkfuncionario	YES	YES	SIMPLE	CASCADE	CASCADE	funcionarios	pkfuncionario
+fk2histprof	fkempresa	YES	YES	SIMPLE	CASCADE	SET NULL	empresas	pkempresa
+fk3histprof	fkatividade	YES	YES	SIMPLE	CASCADE	RESTRICT	atividades	pkatividade
+Tabela: idiomasfalados								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1idiomafalado	fkidioma	YES	YES	SIMPLE	CASCADE	CASCADE	idiomas	pkidioma
+fk2idiomafalado	fkpais	YES	YES	SIMPLE	CASCADE	CASCADE	paises	pkpais
+Tabela: instituicoesdeensino								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1instituicao	fklogradouro	YES	YES	SIMPLE	CASCADE	SET NULL	logradouros	pklogradouro
+Tabela: instituicoesdeensinotels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1instituicaotel	fkinstituicao	YES	YES	SIMPLE	CASCADE	CASCADE	instituicoesdeensino	pkinstituicao
+fk2instituicaotel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: inventarios								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1inventario	ukceproduto	YES	YES	SIMPLE	CASCADE	NO ACTION	produtos	pkproduto
+fk2inventario	ukcefuncionario	YES	YES	SIMPLE	CASCADE	NO ACTION	funcionarios	pkfuncionario
+Tabela: livros								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1livro	fkeditora	YES	YES	SIMPLE	CASCADE	SET NULL	editoras	pkeditora
+Tabela: logradouros								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1logradouro	fkcidade	YES	YES	SIMPLE	CASCADE	RESTRICT	cidades	pkcidade
+fk2logradouro	fktipologradouro	YES	YES	SIMPLE	CASCADE	RESTRICT	logradourostipos	pktipologradouro
+Tabela: matriculas								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1matricula	fkturma	YES	YES	SIMPLE	CASCADE	RESTRICT	turmas	pkturma
+fk2matricula	fkfuncionario	YES	YES	SIMPLE	CASCADE	CASCADE	funcionarios	pkfuncionario
+Tabela: medicos								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1medico	fkespecialidade	YES	YES	SIMPLE	CASCADE	RESTRICT	especialidadesmedicas	pkespecialidade
+fk2medico	fkinstituicao	YES	YES	SIMPLE	CASCADE	RESTRICT	instituicoesdeensino	pkinstituicao
+fk3medico	fklogradouromoradia	YES	YES	SIMPLE	CASCADE	SET NULL	logradouros	pklogradouro
+fk4medico	fklogradouroclinica	YES	YES	SIMPLE	CASCADE	SET NULL	logradouros	pklogradouro
+Tabela: medicostels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1medicotel	fkmedico	YES	YES	SIMPLE	CASCADE	CASCADE	medicos	pkmedico
+fk2medicotel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: movimentos								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1movimento	fklivro	YES	YES	SIMPLE	CASCADE	NO ACTION	livros	pklivro
+fk2movimento	fkfuncionario	YES	YES	SIMPLE	CASCADE	SET NULL	funcionarios	pkfuncionario
+fk3movimento	fktipomovimento	YES	YES	SIMPLE	CASCADE	RESTRICT	movimentostipos	pktipomovimento
+Tabela: nfcompras								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1nfcompra	fkfornecedor	YES	YES	SIMPLE	CASCADE	SET NULL	fornecedores	pkfornecedor
+fk2nfcompra	fkfuncionario	YES	YES	SIMPLE	CASCADE	SET NULL	funcionarios	pkfuncionario
+Tabela: nfcomprasitens								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1nfcompraitem	fknunfcompra	YES	YES	SIMPLE	CASCADE	CASCADE	nfcompras	pknunfcompra
+fk2nfcompraitem	fkproduto	YES	YES	SIMPLE	CASCADE	NO ACTION	produtos	pkproduto
+Tabela: nfvendas								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1nfvenda	fkcliente	YES	YES	SIMPLE	CASCADE	SET NULL	clientes	pkcliente
+fk2nfvenda	fkfuncionario	YES	YES	SIMPLE	CASCADE	SET NULL	funcionarios	pkfuncionario
+fk3nfvenda	fkarmazem	YES	YES	SIMPLE	CASCADE	SET NULL	armazens	pkarmazem
+Tabela: nfvendasitens								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1nfvendaitem	fknunfvenda	YES	YES	SIMPLE	CASCADE	CASCADE	nfvendas	pknunfvenda
+fk2nfvendaitem	fkproduto	YES	YES	SIMPLE	CASCADE	NO ACTION	produtos	pkproduto
+Tabela: ocorrencias								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1ocorrencia	fksinistro	YES	YES	SIMPLE	CASCADE	RESTRICT	sinistros	pksinistro
+fk2ocorrencia	fkveiculo	YES	YES	SIMPLE	CASCADE	RESTRICT	veiculos	pkveiculo
+fk3ocorrencia	fknumeroapolice	YES	YES	SIMPLE	CASCADE	RESTRICT	seguros	pknumeroapolice
+fk4ocorrencia	fklogradouroprincipal	YES	YES	SIMPLE	CASCADE	RESTRICT	logradouros	pklogradouro
+fk5ocorrencia	fklogradourosecundario	YES	YES	SIMPLE	CASCADE	SET NULL	logradouros	pklogradouro
+Tabela: oficinas								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1oficina	fklogradouro	YES	YES	SIMPLE	CASCADE	SET NULL	logradouros	pklogradouro
+Tabela: oficinastels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1oficinatel	fkoficina	YES	YES	SIMPLE	CASCADE	CASCADE	oficinas	pkoficina
+fk2oficinatel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: palavraslivros								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1palavralivro	fkpalavra	YES	YES	SIMPLE	CASCADE	CASCADE	palavraschaves	pkpalavra
+fk2palavralivro	fklivro	YES	YES	SIMPLE	CASCADE	CASCADE	livros	pklivro
+Tabela: passagens								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1passagem	fkviagem	YES	YES	SIMPLE	CASCADE	NO ACTION	viagens	pkviagem
+fk2passagem	fkonibus	YES	YES	SIMPLE	CASCADE	NO ACTION	veiculos	pkveiculo
+fk3passagem	fkfuncionario	YES	YES	SIMPLE	CASCADE	NO ACTION	funcionarios	pkfuncionario
+Tabela: pedcompras								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1pedcompra	fkfornecedor	YES	YES	SIMPLE	CASCADE	RESTRICT	fornecedores	pkfornecedor
+fk2pedcompra	fkfuncionario	YES	YES	SIMPLE	CASCADE	SET NULL	funcionarios	pkfuncionario
+Tabela: pedcomprasitens								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1pedcompraitem	fkpedcompra	YES	YES	SIMPLE	CASCADE	CASCADE	pedcompras	pkpedcompra
+fk2pedcompraitem	fkproduto	YES	YES	SIMPLE	CASCADE	RESTRICT	produtos	pkproduto
+Tabela: pedvendas								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1pedvenda	fkcliente	YES	YES	SIMPLE	CASCADE	RESTRICT	clientes	pkcliente
+fk2pedvenda	fkfuncionario	YES	YES	SIMPLE	CASCADE	NO ACTION	funcionarios	pkfuncionario
+Tabela: pedvendasitens								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1pedvendaitem	fkpedvenda	YES	YES	SIMPLE	CASCADE	CASCADE	pedvendas	pkpedvenda
+fk2pedvendaitem	fkproduto	YES	YES	SIMPLE	CASCADE	RESTRICT	produtos	pkproduto
+Tabela: planosdesaude								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1plansaude	fklogradouro	YES	YES	SIMPLE	CASCADE	SET NULL	logradouros	pklogradouro
+Tabela: planosdesaudemedicos								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1plansaudemed	fkplanodesaude	YES	YES	SIMPLE	CASCADE	CASCADE	planosdesaude	pkplanodesaude
+fk2plansaudemed	fkmedico	YES	YES	SIMPLE	CASCADE	CASCADE	medicos	pkmedico
+Tabela: planosdesaudetels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1plansaudetel	fkplanodesaude	YES	YES	SIMPLE	CASCADE	CASCADE	planosdesaude	pkplanodesaude
+fk2plansaudetel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: professores								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1professor	fklogradouro	YES	YES	SIMPLE	CASCADE	SET NULL	logradouros	pklogradouro
+Tabela: professorestels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1professortel	fkprofessor	YES	YES	SIMPLE	CASCADE	CASCADE	professores	pkprofessor
+fk2professortel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: projetos								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1projeto	fkdepto	YES	YES	SIMPLE	CASCADE	SET NULL	departamentos	pkdepto
+fk2projeto	fkfuncresponsavel	YES	YES	SIMPLE	CASCADE	SET NULL	funcionarios	pkfuncionario
+fk3projeto	fkprojetosuperior	YES	YES	SIMPLE	CASCADE	SET NULL	projetos	pkprojeto
+Tabela: rotasviarias								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1rotaviaria	fkcidadeorigem	YES	YES	SIMPLE	CASCADE	SET NULL	cidades	pkcidade
+fk2rotaviaria	fkcidadedestino	YES	YES	SIMPLE	CASCADE	SET NULL	cidades	pkcidade
+Tabela: roteiros								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1roteiro	fkrota	YES	YES	SIMPLE	CASCADE	CASCADE	rotasviarias	pkrota
+fk2roteiro	fkcidade	YES	YES	SIMPLE	CASCADE	CASCADE	cidades	pkcidade
+Tabela: seguradoras								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1seguradora	fklogradouro	YES	YES	SIMPLE	CASCADE	SET NULL	logradouros	pklogradouro
+Tabela: seguradorastels								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1seguradoratel	fkseguradora	YES	YES	SIMPLE	CASCADE	CASCADE	seguradoras	pkseguradora
+fk2seguradoratel	fkteltipo	YES	YES	SIMPLE	CASCADE	SET NULL	telefonestipos	pkteltipo
+Tabela: seguros								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1seguro	fkveiculo	YES	YES	SIMPLE	CASCADE	CASCADE	veiculos	pkveiculo
+fk2seguro	fkseguradora	YES	YES	SIMPLE	CASCADE	CASCADE	seguradoras	pkseguradora
+Tabela: servicosfeitospor								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1servicofeitopor	fkoficina	YES	YES	SIMPLE	CASCADE	RESTRICT	oficinas	pkoficina
+fk2servicofeitopor	fkservico	YES	YES	SIMPLE	CASCADE	CASCADE	servicos	pkservico
+Tabela: servicosprestados								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1servicoprestado	fkservicofeitopor	YES	YES	SIMPLE	CASCADE	CASCADE	servicosfeitospor	pkservicofeitopor
+fk2servicoprestado	fkveiculo	YES	YES	SIMPLE	CASCADE	CASCADE	veiculos	pkveiculo
+Tabela: tarefasprojetos								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1tarefaprojeto	fkprojeto	YES	YES	FULL	CASCADE	CASCADE	projetos	pkprojeto
+fk2tarefaprojeto	fktarefa	YES	YES	FULL	CASCADE	CASCADE	tarefas	pktarefa
+Tabela: titulacoes								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1titulacao	fkprofessor	YES	YES	FULL	CASCADE	CASCADE	professores	pkprofessor
+fk2titulacao	fkgrauescolar	YES	YES	SIMPLE	CASCADE	RESTRICT	grausdeescolaridade	pkgrauescolar
+fk3titulacao	fkinstituicao	YES	YES	SIMPLE	CASCADE	RESTRICT	instituicoesdeensino	pkinstituicao
+Tabela: turmas								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1turma	fkatribuicao	YES	YES	SIMPLE	CASCADE	NO ACTION	atribuicoes	pkatribuicao
+Tabela: veiculos								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1veiculo	fktipoveiculo	YES	YES	FULL	CASCADE	CASCADE	veiculostipos	pktipoveiculo
+fk2veiculo	fkmodeloveiculo	YES	YES	SIMPLE	CASCADE	NO ACTION	veiculosmodelos	pkmodeloveiculo
+fk3veiculo	fkfuncionario	YES	YES	FULL	CASCADE	CASCADE	funcionarios	pkfuncionario
+Tabela: veiculosmarcas								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1veiculomarca	fkfabricante	YES	YES	SIMPLE	CASCADE	CASCADE	fabricantes	pkfabricante
+Tabela: veiculosmodelos								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1veiculomodelo	fkmarcaveiculo	YES	YES	FULL	CASCADE	CASCADE	veiculosmarcas	pkmarcaveiculo
+Tabela: viagens								
+Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
+fk1viagem	fkrota	YES	YES	SIMPLE	CASCADE	NO ACTION	rotasviarias	pkrota
+								
