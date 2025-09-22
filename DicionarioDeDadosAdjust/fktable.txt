@@ -10,18 +10,18 @@ Tabela: aplicacoesdascontas
 Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
 fk1aplicacaodaconta	fkbanco,fkagencia,fknuconta	YES	YES	SIMPLE	CASCADE	CASCADE	contas	pkfkbanco,pkfkagencia,pknuconta
 fk2aplicacaodaconta	fkaplicfin	YES	YES	SIMPLE	CASCADE	RESTRICT	aplicacoesfinanceiras	pkaplicfin
-Tabela: areasdeestudocursos								
+Tabela: areadeestudocursos								
 Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
-fk1areadeestcurso	fkcurso	YES	YES	SIMPLE	CASCADE	CASCADE	cursos	pkcurso
-fk2areadeestcurso	ukceareadeestudo	YES	YES	SIMPLE	CASCADE	CASCADE	areasdeestudo	pkareadeestudo
-Tabela: areasdeestudodisciplinas								
+fk1areadeestcurso	ukcecurso	YES	YES	SIMPLE	CASCADE	CASCADE	cursos	pkcurso
+fk2areadeestcurso	ukceareadeestudo	YES	YES	SIMPLE	CASCADE	CASCADE	areadeestudos	pkareadeestudo
+Tabela: areadeestudodisciplinas								
 Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
 fk1areadeestdiscipl	ukcedisciplina	YES	YES	SIMPLE	CASCADE	CASCADE	disciplinas	pkdisciplina
-fk2areadeestdiscipl	ukceareadeestudo	YES	YES	SIMPLE	CASCADE	CASCADE	areasdeestudo	pkareadeestudo
-Tabela: areasdeestudolivros								
+fk2areadeestdiscipl	ukceareadeestudo	YES	YES	SIMPLE	CASCADE	CASCADE	areadeestudos	pkareadeestudo
+Tabela: areadeestudolivros								
 Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
 fk1areadeestlivro	ukcelivro	YES	YES	SIMPLE	CASCADE	CASCADE	livros	pklivro
-fk2areadeestlivro	ukceareadeestudo	YES	YES	SIMPLE	CASCADE	CASCADE	areasdeestudo	pkareadeestudo
+fk2areadeestlivro	ukceareadeestudo	YES	YES	SIMPLE	CASCADE	CASCADE	areadeestudos	pkareadeestudo
 Tabela: armazens								
 Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
 fk1armazem	fklogradouro	YES	YES	SIMPLE	CASCADE	CASCADE	logradouros	pklogradouro
@@ -59,7 +59,7 @@ fk2bairrologradouro	fkbairro	YES	YES	SIMPLE	CASCADE	CASCADE	bairros	pkbairro
 Tabela: bancos								
 Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
 fk1banco	fklogradourosede	YES	YES	SIMPLE	CASCADE	RESTRICT	logradouros	pklogradouro
-Tabela: bibliografia								
+Tabela: bibliografias								
 Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
 fk1bibliografia	ukcedisciplina	YES	YES	SIMPLE	CASCADE	CASCADE	disciplinas	pkdisciplina
 fk2bibliografia	ukcelivro	YES	YES	SIMPLE	CASCADE	CASCADE	livros	pklivro

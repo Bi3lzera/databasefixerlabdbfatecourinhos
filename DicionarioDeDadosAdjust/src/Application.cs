@@ -152,6 +152,8 @@ namespace DicionarioDeDadosAdjust
 
             Console.WriteLine("\n---------Iniciando importação das FKs---------\n");
             string actualTable = ""; //Cria uma variável para armazenar o nome da tabela atual que está sendo criada as FKs.
+
+            List<string> tableNotFoundList = new List<string>();
             for (int i = 0; true; i++) //Inicia o loop para buscar cada linha da tabela que está criando as FKs.
             {
                 string? input;
@@ -219,6 +221,11 @@ namespace DicionarioDeDadosAdjust
                                 ); //Dump de dados.
                                 break; //Interrompe o loop para busca da tabela, afinal, se já encontrou a tabela, não há necessidade de continuar.
                             }
+                            if (tabela.name == tabelas.Last().name)
+                            {
+                                Console.WriteLine($"ERRO: Tabela {actualTable} não encontrada!");
+                                tableNotFoundList.Add(actualTable);
+                            }
                         }
                     }
                 }
@@ -226,6 +233,18 @@ namespace DicionarioDeDadosAdjust
                 {
                     Console.WriteLine(ex); //Dump do erro gerado.
                 }
+            }
+
+            if (tableNotFoundList.Count > 0)
+            {
+                Console.WriteLine(
+                    "\nATENÇÃO: HÁ TABELAS NÃO ENCONTRADAS, verifique os dados da tabela de FKs."
+                );
+                Console.WriteLine("Tabelas:");
+                foreach (var tabela in tableNotFoundList)
+                    Console.WriteLine(tabela);
+                Console.WriteLine("\nAperte qualquer tecla para continuar...");
+                Console.ReadKey();
             }
 
             return tabelas; //Retorna as tabela fornecidas, já ajustadas com as tabelas FKs.
