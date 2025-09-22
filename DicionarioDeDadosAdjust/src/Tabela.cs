@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DicionarioDeDadosAdjust
+﻿namespace DicionarioDeDadosAdjust
 {
+    //Objeto tabela, onde irá conter os dados da tabela e os seus dados de Colunas e FKs com seus respectivos dados.
     public class Tabela
     {
         public List<Column> columns { get; set; } = new List<Column>();
@@ -29,6 +23,7 @@ namespace DicionarioDeDadosAdjust
         }
     }
 
+    //Objeto coluna para criar e armazenar os dados de uma coluna
     public class Column
     {
         public int pos { get; set; }
@@ -39,6 +34,7 @@ namespace DicionarioDeDadosAdjust
         public string required { get; set; } = new string(string.Empty);
     }
 
+    //Objeto ForeignKey (FK) para criar e armazenar os dados de uma ForeignKey
     public class ForeignKey
     {
         public string name { get; set; } = new string(string.Empty);
