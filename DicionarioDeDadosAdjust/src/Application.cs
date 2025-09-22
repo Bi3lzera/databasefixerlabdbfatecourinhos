@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace DicionarioDeDadosAdjust
 {
     public class App
@@ -9,10 +7,20 @@ namespace DicionarioDeDadosAdjust
         {
             List<Tabela> tabelas = new List<Tabela>(); //Intancia a lista de tabelas que será armazenado os dados de todas as tabelas, junto de suas colunas e FKs.
 
+            Console.WriteLine("\n---------Iniciando importação de tabelas---------\n");
+
+            string[]? fileStrings = GetInsertFile("dicionario");
+            if (fileStrings != null)
+                Console.WriteLine("Arquivo dicionario.txt encontrado com sucesso!\n");
+            else
+                Console.WriteLine(
+                    "\nArquivo dicionario.txt não encontrado. Insira os dados manualmente.\n"
+                );
+
+            Console.WriteLine("Importando tabelas...\n");
             //Loop para buscar todas as tabelas com suas respectivas colunas até que a entrada seja "4321" que indica a finalização da inserção de tabelas.
             while (true)
             {
-                string[]? fileStrings = GetInsertFile("dicionario");
                 if (fileStrings != null)
                 {
                     List<string> tableTxt = new List<string>();
@@ -28,7 +36,6 @@ namespace DicionarioDeDadosAdjust
                             tabelas.Add(LoadTable(tableTxt));
                             tableTxt.RemoveRange(0, tableTxt.Count);
                         }
-                        Console.WriteLine(s);
                     }
                     break;
                 }
@@ -36,17 +43,21 @@ namespace DicionarioDeDadosAdjust
                 {
                     tabelas.Add(LoadTable(null)); //Solicita e insere uma nova tabela a lista
                 }
-                
+
                 if (Console.ReadLine()?.Split("	")[0] == "4321") //Caso haja entrada no console com o número "4321" encerra o loop. (Para continuar, pasta inserir uma entrada vazia ou um enter).
                     break; //Comando para encerrar o loop caso a condição acima seja true.
             }
 
+            Console.WriteLine($"\nSucesso! {tabelas.Count} tabelas foram importadas.");
+
             tabelas = LoadFKTable(tabelas); //Solicita e correga nas tabelas a tabela Foreign Key (FK). A tabela irá carregar a FK já em todas as tabelas anteriormente cadastradas.
 
-            Console.WriteLine(tabelas[0].foreignKeys.Count); //Dump de variáveis.
-            Console.WriteLine(tabelas[0].foreignKeys[0].name); //Dump de variáveis.
+            Console.WriteLine("\nFinalizado.");
 
             GenerateSQL(tabelas); //Gera o SQL das tabelas carregadas.
+
+            Console.Write("\nPressione qualquer tecla para finalizar a aplicação...");
+            Console.ReadKey();
         }
 
         //Busca os dados e carrega a Tabela, com dados da Tabela e suas Colunas.
@@ -54,12 +65,17 @@ namespace DicionarioDeDadosAdjust
         {
             Tabela t = new Tabela(); //Instancia uma tabela temporária que será retornada.
 
-            Console.WriteLine("Cole o cabeçalho da tabela:");
             string? cabecalho;
             if (tableTxt == null)
+            {
+                Console.WriteLine("Cole o cabeçalho da tabela:");
                 cabecalho = Console.ReadLine();
+            }
             else
+            {
                 cabecalho = tableTxt[0]; //Busca os dados BRUTOS do cabeçalho.
+                Console.WriteLine($"Carregando dados da tabela {cabecalho.Split('	')[0]}...");
+            }
 
             if (cabecalho == null) //Evita de tentar cadastar um cabeçalho sem dados.
                 return t; //Retorna uma tabela vazia.
@@ -67,17 +83,25 @@ namespace DicionarioDeDadosAdjust
             string[] fCabecalho = cabecalho.Split("	", 2); //Refina os dados de entrada do cabeçalho.
             for (int i = 1; true; i++) //Inicia o loop para buscar todas as colunas da tabela, o loop finaliza com uma entrada vazia de dados ou enter.
             {
-                Console.WriteLine("Cole os dados da tabela:");
                 string? input;
                 if (tableTxt == null)
+                {
+                    Console.WriteLine("Cole os dados da tabela:");
                     input = Console.ReadLine();
+                }
                 else
+                {
                     input = tableTxt[i]; //Entrada de cada linha contendo os dados da coluna (DADOS BRUTOS).
+                }
 
                 if (input == null || input.Split("	")[0] == "") //Verifica se a entrada é nula ou vazia para encerrar o loop.
                     break; //Encerra o loop caso condição acima = true.
 
                 string[] fInput = input.Split("	"); //Refina os dados da variável input em colunas para um array.
+
+                if (fInput[0] == "Pos.")
+                    continue;
+
                 Column tColumn = new Column(); //Instancia um objeto coluna temporário para preencher as colunas de uma tabela.
 
                 //Tenta inserir os dados na coluna temporária criada,
@@ -99,12 +123,16 @@ namespace DicionarioDeDadosAdjust
                 finally //Finalmente adiciona os dados captados a coluna temporária criada. Mas somente caso as colunas Pos e Nome não sejam nulas.
                 {
                     if (tColumn.pos != 0 && tColumn.name != null) //Verifica se as colunas são nulas.
+                    {
                         t.columns.Add(tColumn); //Se não forem nulas, adiciona os dados dessa coluna a variável colunas da lista tabelas.
+                    }
                 }
             }
 
             t.name = fCabecalho[0].Split(" ")[1]; //Adicioan os dados (NOME DA TABELA) de cabeçalho da tabela.
             t.comment = fCabecalho[1].Substring(13); //Adicioan os dados (COMENTÁRIO DA TABELA) de cabeçalho da tabela.
+
+            Console.WriteLine($"-> Sucesso! {t.columns.Count} colunas adicionadas.");
 
             return t; //Retorna a tabela criada e preenchida.
         }
@@ -116,16 +144,26 @@ namespace DicionarioDeDadosAdjust
         //pois se não o pograma irá gerar um SQL que não irá funcionar no Postgres.
         public static List<Tabela> LoadFKTable(List<Tabela> tabelas)
         {
-            Console.WriteLine("Cole a tabela de FKs:");
             string[]? fileStrings = GetInsertFile("fktable");
+            if (fileStrings != null)
+                Console.WriteLine("\nLeitura do arquivo fktable.txt foi um sucesso!");
+            else
+                Console.WriteLine("\nLeitura do arquivo falhou. Insira os dados manulamente.");
+
+            Console.WriteLine("\n---------Iniciando importação das FKs---------\n");
             string actualTable = ""; //Cria uma variável para armazenar o nome da tabela atual que está sendo criada as FKs.
             for (int i = 0; true; i++) //Inicia o loop para buscar cada linha da tabela que está criando as FKs.
             {
                 string? input;
-                if (fileStrings == null) //Capta a linha de dados (BRUTO).
+                if (fileStrings == null)
+                { //Capta a linha de dados (BRUTO).
+                    Console.WriteLine("Cole a tabela de FKs:");
                     input = Console.ReadLine();
+                }
                 else
+                {
                     input = fileStrings[i];
+                }
 
                 if (input == null || input.Split("	")[0] == "") //Identifica se a entrada de dados é nula ou vazia, para interromper a aplicação.
                     break; //Interrompe a aplicação, caso condição acima seja true.
@@ -196,12 +234,16 @@ namespace DicionarioDeDadosAdjust
         //Função para gerar o SQL com a Lista de tabelas já ajustadas.
         public static void GenerateSQL(List<Tabela> tabelas)
         {
+            Console.WriteLine("\n---------Iniciando geração do SQL---------\n");
             string fullSql = ""; //Variável principal que irá armazenar todo o SQL.
 
             //Loop que percorrerá cada tabela da lista tabelas.
             //Esse loop irá gerar o CREATE TABLE de cada tabela.
             //Existe um adicional de "DROP TABLE" para garantir que seja gerada uma nova tabela e exclua qualquer que existir no BD.
             //Porém, recomenda-se que a database esteja limpa.
+
+            Console.WriteLine("Gerando SQL...\n");
+            Console.WriteLine("->Tabelas e Colunas com seus respectivos comentários...");
             foreach (var tabela in tabelas)
             {
                 string sql = $"\n\n\nDROP TABLE IF EXISTS public.{tabela.name} CASCADE;\n\n"; //Drop na table, caso ela já exista.
@@ -248,6 +290,7 @@ namespace DicionarioDeDadosAdjust
                 fullSql += sql; // Adiciona tudo da variável temporária para a variável principal de comandos SQL.
             }
 
+            Console.WriteLine("->Inserts de dados...");
             //Função opcional, aqui o algoritmo irá buscar por um arquivo chamanda "insert.txt", nessa arquivo conterá os INSERT de dados das tabelas.
             //Foi criado esse loop, exatamente nesse local, pois é exatamente no local do SQL que ele deve estar, se ele for executado depois de ter
             //criado as PKs e FKs, terá muitos erros de FK não encontrada. Até dá para corrigir isso, colocando os inserts nas posições corretas, porém,
@@ -258,7 +301,10 @@ namespace DicionarioDeDadosAdjust
                 {
                     fullSql += $"\n{s}";
                 }
+            else
+                Console.WriteLine("->->Arquivo insert.txt não foi encotrado. Pulando...");
 
+            Console.WriteLine("->Primary Keys de todas as tabelas...");
             //Loop parar criar as Primary Key, de cada tabela.
             foreach (var tabela in tabelas)
             {
@@ -270,6 +316,7 @@ namespace DicionarioDeDadosAdjust
                 fullSql += sql;
             }
 
+            Console.WriteLine("->Unique Keys de todas as tabelas...");
             //Loop para criar as Unique Keys, de cada coluna, de cada tabela.
             foreach (var tabela in tabelas)
             {
@@ -292,6 +339,7 @@ namespace DicionarioDeDadosAdjust
                 }
             }
 
+            Console.WriteLine("->Foreign Keys de todas as colunas...");
             //Loop para criar as Foreign Keys, de cada coluna, de cada tabela.
             foreach (var tabela in tabelas)
             {
@@ -360,7 +408,8 @@ namespace DicionarioDeDadosAdjust
             */
             #endregion
 
-            //Chama função para escrever todo o SQL gerado nesta função, em um arquivo .txt.
+            Console.WriteLine("\nArquivo SQL Gerado com Sucesso!\n");
+            //Chama função para escrever todo o SQL gerado desta função, em um arquivo .txt.
             SaveToFile(fullSql);
         }
 
@@ -374,7 +423,7 @@ namespace DicionarioDeDadosAdjust
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Fallha ao encontrar o arquivo insert.txt:\n{ex.Message}");
+                Console.WriteLine($"Fallha ao encontrar o arquivo {txtName}.txt:\n{ex.Message}");
             }
             return null;
         }
