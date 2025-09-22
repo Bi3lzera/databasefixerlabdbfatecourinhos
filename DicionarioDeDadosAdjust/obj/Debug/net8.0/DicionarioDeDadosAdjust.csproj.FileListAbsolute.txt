@@ -1,0 +1,56 @@
+C:\Users\bielm\source\repos\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.exe
+C:\Users\bielm\source\repos\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.deps.json
+C:\Users\bielm\source\repos\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.runtimeconfig.json
+C:\Users\bielm\source\repos\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.dll
+C:\Users\bielm\source\repos\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.pdb
+C:\Users\bielm\source\repos\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bielm\source\repos\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.AssemblyInfoInputs.cache
+C:\Users\bielm\source\repos\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.AssemblyInfo.cs
+C:\Users\bielm\source\repos\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.csproj.CoreCompileInputs.cache
+C:\Users\bielm\source\repos\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.dll
+C:\Users\bielm\source\repos\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\refint\DicionarioDeDadosAdjust.dll
+C:\Users\bielm\source\repos\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.pdb
+C:\Users\bielm\source\repos\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.genruntimeconfig.cache
+C:\Users\bielm\source\repos\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\ref\DicionarioDeDadosAdjust.dll
+D:\Area de Trabalho\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.exe
+D:\Area de Trabalho\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.deps.json
+D:\Area de Trabalho\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.runtimeconfig.json
+D:\Area de Trabalho\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.dll
+D:\Area de Trabalho\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.pdb
+D:\Area de Trabalho\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.GeneratedMSBuildEditorConfig.editorconfig
+D:\Area de Trabalho\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.AssemblyInfoInputs.cache
+D:\Area de Trabalho\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.AssemblyInfo.cs
+D:\Area de Trabalho\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.csproj.CoreCompileInputs.cache
+D:\Area de Trabalho\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.dll
+D:\Area de Trabalho\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\refint\DicionarioDeDadosAdjust.dll
+D:\Area de Trabalho\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.pdb
+D:\Area de Trabalho\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.genruntimeconfig.cache
+D:\Area de Trabalho\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\ref\DicionarioDeDadosAdjust.dll
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.exe
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.deps.json
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.runtimeconfig.json
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.dll
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.pdb
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.GeneratedMSBuildEditorConfig.editorconfig
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.AssemblyInfoInputs.cache
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.AssemblyInfo.cs
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.csproj.CoreCompileInputs.cache
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.dll
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\refint\DicionarioDeDadosAdjust.dll
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.pdb
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.genruntimeconfig.cache
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\ref\DicionarioDeDadosAdjust.dll
+C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.exe
+C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.deps.json
+C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.runtimeconfig.json
+C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.dll
+C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.pdb
+C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.AssemblyInfoInputs.cache
+C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.AssemblyInfo.cs
+C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.dll
+C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\refint\DicionarioDeDadosAdjust.dll
+C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.pdb
+C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.genruntimeconfig.cache
+C:\Users\Usuario\Desktop\DicionarioDeDadosAdjust\DicionarioDeDadosAdjust\obj\Debug\net8.0\ref\DicionarioDeDadosAdjust.dll
