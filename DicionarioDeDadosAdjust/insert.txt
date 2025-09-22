@@ -1,4 +1,26 @@
-
+CREATE VIEW public.carros AS
+ SELECT veiculos.pkveiculo AS pkcarro,
+    veiculos.ukplaca,
+    veiculos.fkmodeloveiculo,
+    veiculos.fkfuncionario,
+    veiculos.aotipocarro,
+    veiculos.qtcapacidade,
+    veiculos.nuanofabricacao,
+    veiculos.dtcadveiculo AS dtcarro
+   FROM public.veiculos
+  WHERE (veiculos.aocategoria = 'C'::bpchar);
+ALTER TABLE public.carros OWNER TO postgres;
+CREATE VIEW public.onibus WITH (security_barrier='false') AS
+ SELECT veiculos.pkveiculo AS pkonibus,
+    veiculos.ukplaca,
+    veiculos.fkmodeloveiculo,
+    veiculos.txapelido,
+    veiculos.qtcapacidade,
+    veiculos.nuanofabricacao,
+    veiculos.dtcadveiculo AS dtcadonibus
+   FROM public.veiculos
+  WHERE (veiculos.aocategoria = 'O'::bpchar);
+ALTER TABLE public.onibus OWNER TO postgres;
 INSERT INTO public.agencias VALUES ('001', '6632X ', 'Nove de Julho', 10, '452', '01478529', '2010-10-05');
 INSERT INTO public.agencias VALUES ('001', '6633X ', 'Antonio Mori', 10, '745', '14521521', '2010-10-05');
 INSERT INTO public.agencias VALUES ('001', '0001X ', 'Matriz', 620, '14564 - Bloco 1', '04452160', '2020-09-15');

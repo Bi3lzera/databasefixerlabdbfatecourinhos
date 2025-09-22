@@ -262,10 +262,18 @@ namespace DicionarioDeDadosAdjust
             //Porém, recomenda-se que a database esteja limpa.
 
             Console.WriteLine("Gerando SQL...\n");
+
+            Console.WriteLine("->Configurações da database (START)\n");
+            string[]? startData = GetInsertFile("start");
+            if (startData != null) foreach (var s in startData)
+                {
+                    fullSql += $"{s}\n\n";
+            }
+
             Console.WriteLine("->Tabelas e Colunas com seus respectivos comentários...");
             foreach (var tabela in tabelas)
             {
-                string sql = $"\n\n\nDROP TABLE IF EXISTS public.{tabela.name} CASCADE;\n\n"; //Drop na table, caso ela já exista.
+                string sql = $"DROP TABLE IF EXISTS public.{tabela.name} CASCADE;\n\n"; //Drop na table, caso ela já exista.
                 sql += $"CREATE TABLE public.{tabela.name} (\n"; //Cria a tabela.
                 //Cria as colunas, o loop percorre todas listadas na ATUAL tabela.
                 foreach (var col in tabela.columns)
@@ -330,7 +338,7 @@ namespace DicionarioDeDadosAdjust
                 string sql = "";
                 if (tabela.pkColumns() != "")
                     sql +=
-                        $"\n\nALTER TABLE ONLY public.{tabela.name} ADD CONSTRAINT {tabela.name}_pkey PRIMARY KEY ({tabela.pkColumns().Trim().TrimEnd(',')});";
+                        $"\n\nALTER TABLE IF EXISTS public.{tabela.name} ADD CONSTRAINT {tabela.name}_pkey PRIMARY KEY ({tabela.pkColumns().Trim().TrimEnd(',')});";
 
                 fullSql += sql;
             }
@@ -352,7 +360,7 @@ namespace DicionarioDeDadosAdjust
                 if (uk != "")
                 {
                     sql +=
-                        $"\n\nALTER TABLE public.{tabela.name} ADD CONSTRAINT {tabela.name}uk UNIQUE ({uk.TrimEnd(',', ' ')});";
+                        $"\n\nALTER TABLE IF EXISTS public.{tabela.name} ADD CONSTRAINT {tabela.name}uk UNIQUE ({uk.TrimEnd(',', ' ')});";
 
                     fullSql += sql;
                 }
@@ -366,7 +374,7 @@ namespace DicionarioDeDadosAdjust
                 foreach (var fk in tabela.foreignKeys)
                 {
                     sql +=
-                        $"\n\nALTER TABLE ONLY public.{tabela.name} ADD CONSTRAINT {fk.name} FOREIGN KEY ({fk.campo}) REFERENCES public.{fk.referenceTable}({fk.campoReference}) {fk.type} ON UPDATE {fk.onUpdate} ON DELETE {fk.onDelete} {fk.deferrable} {fk.deferrade};";
+                        $"\n\nALTER TABLE IF EXISTS public.{tabela.name} ADD CONSTRAINT {fk.name} FOREIGN KEY ({fk.campo}) REFERENCES public.{fk.referenceTable}({fk.campoReference}) {fk.type} ON UPDATE {fk.onUpdate} ON DELETE {fk.onDelete} {fk.deferrable} {fk.deferrade} NOT VALID;";
                 }
                 fullSql += sql;
             }
@@ -437,7 +445,7 @@ namespace DicionarioDeDadosAdjust
         {
             try
             {
-                string[] fileStrings = fileStrings = File.ReadAllLines($".\\{txtName}.txt");
+                string[] fileStrings = fileStrings = File.ReadAllLines($"./{txtName}.txt");
                 return fileStrings;
             }
             catch (Exception ex)
@@ -448,7 +456,7 @@ namespace DicionarioDeDadosAdjust
         }
 
         //Função para escrever em um arquivo txt. Neste caso, servindo para escrever o sql no arquivo sql.txt.
-        public static void SaveToFile(String sql, string path = ".\\sql.txt")
+        public static void SaveToFile(String sql, string path = "./sql.txt")
         {
             try
             {
