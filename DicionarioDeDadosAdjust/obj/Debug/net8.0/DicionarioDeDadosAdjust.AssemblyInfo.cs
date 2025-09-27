@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DicionarioDeDadosAdjust")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3892237ba923be712d5559e98b1a2809aa422a00")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20499944518aee3a9a5c6d425f24aa9cf4bb00c8")]
 [assembly: System.Reflection.AssemblyProductAttribute("DicionarioDeDadosAdjust")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DicionarioDeDadosAdjust")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
