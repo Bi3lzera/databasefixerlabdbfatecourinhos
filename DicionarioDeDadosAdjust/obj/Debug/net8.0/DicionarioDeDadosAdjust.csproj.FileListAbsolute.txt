@@ -70,3 +70,11 @@ C:/Users/Usuario/Desktop/DicionarioDeDadosAdjust/DicionarioDeDadosAdjust/obj/Deb
 /home/biel/databasefixerlabdbfatecourinhos/DicionarioDeDadosAdjust/obj/Debug/net8.0/DicionarioDeDadosAdjust.pdb
 /home/biel/databasefixerlabdbfatecourinhos/DicionarioDeDadosAdjust/obj/Debug/net8.0/DicionarioDeDadosAdjust.genruntimeconfig.cache
 /home/biel/databasefixerlabdbfatecourinhos/DicionarioDeDadosAdjust/obj/Debug/net8.0/ref/DicionarioDeDadosAdjust.dll
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.GeneratedMSBuildEditorConfig.editorconfig
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.AssemblyInfoInputs.cache
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.AssemblyInfo.cs
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.csproj.CoreCompileInputs.cache
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.sourcelink.json
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.dll
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\obj\Debug\net8.0\refint\DicionarioDeDadosAdjust.dll
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.pdb
