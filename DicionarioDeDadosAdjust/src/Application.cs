@@ -2,14 +2,14 @@ namespace DicionarioDeDadosAdjust
 {
     public class App
     {
+        List<Tabela> tabelas {get; set;} = new List<Tabela>(); //Intancia a lista de tabelas que será armazenado os dados de todas as tabelas, junto de suas colunas e FKs.
+
         //Ponto de partida da aplicação.
         public static void Run()
         {
-            List<Tabela> tabelas = new List<Tabela>(); //Intancia a lista de tabelas que será armazenado os dados de todas as tabelas, junto de suas colunas e FKs.
-
             Console.WriteLine("\n---------Iniciando importação de tabelas---------\n");
 
-            string[]? fileStrings = GetInsertFile("dicionario");
+            string[]? fileStrings = GetSQLFile("dicionario");
             if (fileStrings != null)
                 Console.WriteLine("Arquivo dicionario.txt encontrado com sucesso!\n");
             else
@@ -144,7 +144,7 @@ namespace DicionarioDeDadosAdjust
         //pois se não o pograma irá gerar um SQL que não irá funcionar no Postgres.
         public static List<Tabela> LoadFKTable(List<Tabela> tabelas)
         {
-            string[]? fileStrings = GetInsertFile("fktable");
+            string[]? fileStrings = GetSQLFile("fktable");
             if (fileStrings != null)
                 Console.WriteLine("\nLeitura do arquivo fktable.txt foi um sucesso!");
             else
@@ -264,7 +264,7 @@ namespace DicionarioDeDadosAdjust
             Console.WriteLine("Gerando SQL...\n");
 
             Console.WriteLine("->Configurações da database (START)\n");
-            string[]? startData = GetInsertFile("start");
+            string[]? startData = GetSQLFile("start");
             if (startData != null) foreach (var s in startData)
                 {
                     fullSql += $"{s}\n\n";
@@ -304,15 +304,8 @@ namespace DicionarioDeDadosAdjust
 
                 sql += $"\n\nCOMMENT ON TABLE public.{tabela.name} IS '{tabela.comment}';"; //Gera o comentário da atual tabela (COMENTÁRIO DA TABELA).
 
-                //Loop para gerar os comentários, de cada tabela.
-                foreach (var col in tabela.columns)
-                {
-                    if (!string.IsNullOrEmpty(col.comment)) //Validação para verificar se a variável do comentário da tabela não é nulo ou está vazio.
-                    {
-                        sql +=
-                            $"\n\nCOMMENT ON COLUMN public.{tabela.name}.{col.name} IS '{col.comment}';";
-                    }
-                }
+
+
 
                 fullSql += sql; // Adiciona tudo da variável temporária para a variável principal de comandos SQL.
             }
@@ -322,7 +315,7 @@ namespace DicionarioDeDadosAdjust
             //Foi criado esse loop, exatamente nesse local, pois é exatamente no local do SQL que ele deve estar, se ele for executado depois de ter
             //criado as PKs e FKs, terá muitos erros de FK não encontrada. Até dá para corrigir isso, colocando os inserts nas posições corretas, porém,
             //isso daria MUITO mais trabalho.
-            string[]? fileInsertData = GetInsertFile("insert");
+            string[]? fileInsertData = GetSQLFile("insert");
             if (fileInsertData != null)
                 foreach (string s in fileInsertData)
                 {
@@ -437,15 +430,15 @@ namespace DicionarioDeDadosAdjust
 
             Console.WriteLine("\nArquivo SQL Gerado com Sucesso!\n");
             //Chama função para escrever todo o SQL gerado desta função, em um arquivo .txt.
-            SaveToFile(fullSql);
+            SaveToSQLFile(fullSql);
         }
 
         //Função para ler um arquivo de texto e retornar um array de linhas.
-        public static string[]? GetInsertFile(string txtName)
+        public static string[]? GetSQLFile(string txtName)
         {
             try
             {
-                string[] fileStrings = fileStrings = File.ReadAllLines($"./{txtName}.txt");
+                string[] fileStrings = fileStrings = File.ReadAllLines($"./{txtName}.sql");
                 return fileStrings;
             }
             catch (Exception ex)
@@ -456,7 +449,7 @@ namespace DicionarioDeDadosAdjust
         }
 
         //Função para escrever em um arquivo txt. Neste caso, servindo para escrever o sql no arquivo sql.txt.
-        public static void SaveToFile(String sql, string path = "./sql.txt")
+        public static void SaveToSQLFile(String sql, string path = "./sql.sql")
         {
             try
             {
