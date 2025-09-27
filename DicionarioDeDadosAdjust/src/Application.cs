@@ -1,67 +1,16 @@
+using static DicionarioDeDadosAdjust.Tabela;
+
 namespace DicionarioDeDadosAdjust
 {
     public class App
     {
-        List<Tabela> tabelas {get; set;} = new List<Tabela>(); //Intancia a lista de tabelas que será armazenado os dados de todas as tabelas, junto de suas colunas e FKs.
+        public List<Tabela> tabelas { get; set; } = new List<Tabela>(); //Intancia a lista de tabelas que será armazenado os dados de todas as tabelas, junto de suas colunas e FKs.
+        public string fullSql { get; set; } = new string(string.Empty);
 
-        //Ponto de partida da aplicação.
-        public static void Run()
-        {
-            Console.WriteLine("\n---------Iniciando importação de tabelas---------\n");
-
-            string[]? fileStrings = GetSQLFile("dicionario");
-            if (fileStrings != null)
-                Console.WriteLine("Arquivo dicionario.txt encontrado com sucesso!\n");
-            else
-                Console.WriteLine(
-                    "\nArquivo dicionario.txt não encontrado. Insira os dados manualmente.\n"
-                );
-
-            Console.WriteLine("Importando tabelas...\n");
-            //Loop para buscar todas as tabelas com suas respectivas colunas até que a entrada seja "4321" que indica a finalização da inserção de tabelas.
-            while (true)
-            {
-                if (fileStrings != null)
-                {
-                    List<string> tableTxt = new List<string>();
-                    foreach (string s in fileStrings)
-                    {
-                        if (s.Split("	")[0] != "")
-                        {
-                            tableTxt.Add(s);
-                        }
-                        else
-                        {
-                            tableTxt.Add(s);
-                            tabelas.Add(LoadTable(tableTxt));
-                            tableTxt.RemoveRange(0, tableTxt.Count);
-                        }
-                    }
-                    break;
-                }
-                else
-                {
-                    tabelas.Add(LoadTable(null)); //Solicita e insere uma nova tabela a lista
-                }
-
-                if (Console.ReadLine()?.Split("	")[0] == "4321") //Caso haja entrada no console com o número "4321" encerra o loop. (Para continuar, pasta inserir uma entrada vazia ou um enter).
-                    break; //Comando para encerrar o loop caso a condição acima seja true.
-            }
-
-            Console.WriteLine($"\nSucesso! {tabelas.Count} tabelas foram importadas.");
-
-            tabelas = LoadFKTable(tabelas); //Solicita e correga nas tabelas a tabela Foreign Key (FK). A tabela irá carregar a FK já em todas as tabelas anteriormente cadastradas.
-
-            Console.WriteLine("\nFinalizado.");
-
-            GenerateSQL(tabelas); //Gera o SQL das tabelas carregadas.
-
-            Console.Write("\nPressione qualquer tecla para finalizar a aplicação...");
-            Console.ReadKey();
-        }
-
+        //
         //Busca os dados e carrega a Tabela, com dados da Tabela e suas Colunas.
-        public static Tabela LoadTable(List<string>? tableTxt)
+        //
+        public Tabela LoadTable(List<string>? tableTxt)
         {
             Tabela t = new Tabela(); //Instancia uma tabela temporária que será retornada.
 
@@ -137,18 +86,19 @@ namespace DicionarioDeDadosAdjust
             return t; //Retorna a tabela criada e preenchida.
         }
 
+        //
         //Função criada para carregar as Foreign Key da tabela.
         //Essa função depende da tabela separada, que instruí a forma como as FKs serão construídas.
         //Essa tabela deve ter os campos corrigidos (caso necessário) para os exatos nomes dos campos das tabelas anteriormente já arrumados.
         //Infelizmente é necessário comparar os campos dessa tabela (FK) com os da tabela (Dicionário de Dados),
         //pois se não o pograma irá gerar um SQL que não irá funcionar no Postgres.
-        public static List<Tabela> LoadFKTable(List<Tabela> tabelas)
+        //
+        public List<Tabela> LoadFKTable(List<Tabela> tabelas)
         {
-            string[]? fileStrings = GetSQLFile("fktable");
-            if (fileStrings != null)
-                Console.WriteLine("\nLeitura do arquivo fktable.txt foi um sucesso!");
-            else
-                Console.WriteLine("\nLeitura do arquivo falhou. Insira os dados manulamente.");
+            string[]? fileStrings = ReadFile("fktable");
+
+            if (fileStrings != null) Console.WriteLine("\nLeitura do arquivo fktable.txt foi um sucesso!");
+            else Console.WriteLine("\nLeitura do arquivo falhou. Insira os dados manulamente.");
 
             Console.WriteLine("\n---------Iniciando importação das FKs---------\n");
             string actualTable = ""; //Cria uma variável para armazenar o nome da tabela atual que está sendo criada as FKs.
@@ -250,72 +200,40 @@ namespace DicionarioDeDadosAdjust
             return tabelas; //Retorna as tabela fornecidas, já ajustadas com as tabelas FKs.
         }
 
+        //
         //Função para gerar o SQL com a Lista de tabelas já ajustadas.
-        public static void GenerateSQL(List<Tabela> tabelas)
+        //
+        public void GenerateSQL(List<Tabela> tabelas)
         {
             Console.WriteLine("\n---------Iniciando geração do SQL---------\n");
-            string fullSql = ""; //Variável principal que irá armazenar todo o SQL.
 
             //Loop que percorrerá cada tabela da lista tabelas.
             //Esse loop irá gerar o CREATE TABLE de cada tabela.
             //Existe um adicional de "DROP TABLE" para garantir que seja gerada uma nova tabela e exclua qualquer que existir no BD.
             //Porém, recomenda-se que a database esteja limpa.
-
             Console.WriteLine("Gerando SQL...\n");
-
             Console.WriteLine("->Configurações da database (START)\n");
-            string[]? startData = GetSQLFile("start");
-            if (startData != null) foreach (var s in startData)
+            string[]? startData = ReadFile("start");
+            if (startData != null)
+                foreach (var s in startData)
                 {
                     fullSql += $"{s}\n\n";
-            }
+                }
 
             Console.WriteLine("->Tabelas e Colunas com seus respectivos comentários...");
             foreach (var tabela in tabelas)
             {
-                string sql = $"DROP TABLE IF EXISTS public.{tabela.name} CASCADE;\n\n"; //Drop na table, caso ela já exista.
-                sql += $"CREATE TABLE public.{tabela.name} (\n"; //Cria a tabela.
-                //Cria as colunas, o loop percorre todas listadas na ATUAL tabela.
-                foreach (var col in tabela.columns)
-                {
-                    //Preenche os dados da tabela, verifica se é not null, etc.
-                    sql += $"{col.name} {col.dataType}";
-                    if (!string.IsNullOrEmpty(col.size) && col.size != "0")
-                    {
-                        if (col.size != "NI")
-                            sql += $"({col.size})";
-                    }
-                    if (col.required.ToLower() == "sim")
-                    {
-                        sql += " NOT NULL";
-                    }
-                    else
-                    {
-                        sql += "";
-                    }
-                    if (col != tabela.columns.Last())
-                        sql += ",";
-                    sql += "\n";
-                }
+                fullSql += tabela.getTableCreateSQL;
 
-                sql += $"\n);"; //Finaliza o create table.
-
-                sql += $"\n\nALTER TABLE public.{tabela.name} OWNER TO postgres;"; //Garante que tabela será vinculada a DB postgres.
-
-                sql += $"\n\nCOMMENT ON TABLE public.{tabela.name} IS '{tabela.comment}';"; //Gera o comentário da atual tabela (COMENTÁRIO DA TABELA).
-
-
-
-
-                fullSql += sql; // Adiciona tudo da variável temporária para a variável principal de comandos SQL.
+                fullSql += tabela.getColumnsCommentSQL;
             }
 
-            Console.WriteLine("->Inserts de dados...");
             //Função opcional, aqui o algoritmo irá buscar por um arquivo chamanda "insert.txt", nessa arquivo conterá os INSERT de dados das tabelas.
             //Foi criado esse loop, exatamente nesse local, pois é exatamente no local do SQL que ele deve estar, se ele for executado depois de ter
             //criado as PKs e FKs, terá muitos erros de FK não encontrada. Até dá para corrigir isso, colocando os inserts nas posições corretas, porém,
             //isso daria MUITO mais trabalho.
-            string[]? fileInsertData = GetSQLFile("insert");
+            Console.WriteLine("->Inserts de dados...");
+            string[]? fileInsertData = ReadFile("insert");
             if (fileInsertData != null)
                 foreach (string s in fileInsertData)
                 {
@@ -328,105 +246,22 @@ namespace DicionarioDeDadosAdjust
             //Loop parar criar as Primary Key, de cada tabela.
             foreach (var tabela in tabelas)
             {
-                string sql = "";
-                if (tabela.pkColumns() != "")
-                    sql +=
-                        $"\n\nALTER TABLE IF EXISTS public.{tabela.name} ADD CONSTRAINT {tabela.name}_pkey PRIMARY KEY ({tabela.pkColumns().Trim().TrimEnd(',')});";
-
-                fullSql += sql;
+                fullSql += tabela.getPrimaryKeySQL;
             }
 
             Console.WriteLine("->Unique Keys de todas as tabelas...");
             //Loop para criar as Unique Keys, de cada coluna, de cada tabela.
             foreach (var tabela in tabelas)
             {
-                string uk = "",
-                    sql = "";
-                foreach (var col in tabela.columns)
-                {
-                    if (col.name.StartsWith("uk"))
-                    {
-                        uk += $"{col.name}, ";
-                    }
-                }
-
-                if (uk != "")
-                {
-                    sql +=
-                        $"\n\nALTER TABLE IF EXISTS public.{tabela.name} ADD CONSTRAINT {tabela.name}uk UNIQUE ({uk.TrimEnd(',', ' ')});";
-
-                    fullSql += sql;
-                }
+                fullSql += tabela.getUniqueKeySQL;
             }
 
             Console.WriteLine("->Foreign Keys de todas as colunas...");
             //Loop para criar as Foreign Keys, de cada coluna, de cada tabela.
             foreach (var tabela in tabelas)
             {
-                string sql = "";
-                foreach (var fk in tabela.foreignKeys)
-                {
-                    sql +=
-                        $"\n\nALTER TABLE IF EXISTS public.{tabela.name} ADD CONSTRAINT {fk.name} FOREIGN KEY ({fk.campo}) REFERENCES public.{fk.referenceTable}({fk.campoReference}) {fk.type} ON UPDATE {fk.onUpdate} ON DELETE {fk.onDelete} {fk.deferrable} {fk.deferrade} NOT VALID;";
-                }
-                fullSql += sql;
+                fullSql += tabela.getForeignKeysSQL;
             }
-
-            //Pula isso, my mistake.
-            #region Old CODE, to generate FKs from column names
-            /*
-            foreach (var tabela in tabelas)
-            {
-                string sql = "";
-                int count = 1;
-                foreach (var col in tabela.columns)
-                {
-                    if (col.name.Contains("fk"))
-                    {
-                        foreach (var tabela2 in tabelas) {
-                            if (tabela2.name == tabela.name) continue;
-                            foreach (var col2 in tabela2.columns)
-                            {
-                                if ((col.name.Substring(1) == col2.name.Substring(1) && col2.name.Contains("pk") && !col2.name.Contains("fk")) || (col.name.Substring(3) == col2.name.Substring(1) && col2.name.Contains("pk") && !col2.name.Contains("fk")))
-                                {
-                                    List<string> pkCols = new List<string>();
-                                    List<string> fkCols = new List<string>();
-                                    foreach (var col3 in tabela2.columns)
-                                    {
-                                        if (col3.name.Contains("pk")) {
-                                            pkCols.Add(col3.name);
-
-                                            foreach (var col4 in tabela.columns)
-                                            {
-                                                if (col4.name.Contains("fk") && (col4.name.Contains(col3.name.Substring(1)) || col4.name.Contains(col3.name.Substring(3))))
-                                                {
-                                                    fkCols.Add(col4.name);
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    if(pkCols.Count > 1)
-                                    {
-                                        sql += $"\n\nALTER TABLE ONLY public.{tabela.name} ADD CONSTRAINT {tabela.name}fk{count} FOREIGN KEY ({string.Join(", ", fkCols)}) REFERENCES public.{tabela2.name}({string.Join(", ", pkCols)}) ON UPDATE CASCADE ON DELETE RESTRICT DEFERRABLE;";
-                                        count++;
-                                        break;
-                                    }
-
-
-                                    sql += $"\n\nALTER TABLE ONLY public.{tabela.name} ADD CONSTRAINT {tabela.name}fk{count} FOREIGN KEY ({col.name}) REFERENCES public.{tabela2.name}({col2.name}) ON UPDATE CASCADE ON DELETE RESTRICT DEFERRABLE;";
-                                    count++;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                fullSql += sql;
-            }
-            */
-            #endregion
 
             Console.WriteLine("\nArquivo SQL Gerado com Sucesso!\n");
             //Chama função para escrever todo o SQL gerado desta função, em um arquivo .txt.
@@ -434,22 +269,22 @@ namespace DicionarioDeDadosAdjust
         }
 
         //Função para ler um arquivo de texto e retornar um array de linhas.
-        public static string[]? GetSQLFile(string txtName)
+        public string[]? ReadFile(string txtName, string type = "sql")
         {
             try
             {
-                string[] fileStrings = fileStrings = File.ReadAllLines($"./{txtName}.sql");
+                string[] fileStrings = fileStrings = File.ReadAllLines($"./files/{txtName}.{type}");
                 return fileStrings;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Fallha ao encontrar o arquivo {txtName}.txt:\n{ex.Message}");
+                Console.WriteLine($"Fallha ao encontrar o arquivo {txtName}.{type}, verifique se o arquivo está na pasta files localizada na pasta raiz do programa:\n{ex.Message}");
             }
             return null;
         }
 
         //Função para escrever em um arquivo txt. Neste caso, servindo para escrever o sql no arquivo sql.txt.
-        public static void SaveToSQLFile(String sql, string path = "./sql.sql")
+        public void SaveToSQLFile(String sql, string path = "./output/sql.sql")
         {
             try
             {
@@ -463,7 +298,7 @@ namespace DicionarioDeDadosAdjust
         }
 
         //Dump de dados.
-        public static void showInConsole(List<Tabela> tabelas)
+        public void showInConsole(List<Tabela> tabelas)
         {
             Console.WriteLine();
             Console.WriteLine(tabelas[0].name);
