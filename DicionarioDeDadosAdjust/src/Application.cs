@@ -95,7 +95,7 @@ namespace DicionarioDeDadosAdjust
         //
         public List<Tabela> LoadFKTable(List<Tabela> tabelas)
         {
-            string[]? fileStrings = ReadFile("fktable");
+            string[]? fileStrings = ReadFile("fktable", "txt");
 
             if (fileStrings != null) Console.WriteLine("\nLeitura do arquivo fktable.txt foi um sucesso!");
             else Console.WriteLine("\nLeitura do arquivo falhou. Insira os dados manulamente.");
