@@ -337,5 +337,4 @@ Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciad
 fk1veiculomodelo	fkmarcaveiculo	YES	YES	FULL	CASCADE	CASCADE	veiculosmarcas	pkmarcaveiculo
 Tabela: viagens								
 Nome	Campo	 Adiavel 	 Adiada 	TipoDeEncaixe	NoUPDATE	NoDELETE	TabReferenciada	CampoRefer
-fk1viagem	fkrota	YES	YES	SIMPLE	CASCADE	NO ACTION	rotasviarias	pkrota
-								
+fk1viagem	fkrota	YES	YES	SIMPLE	CASCADE	NO ACTION	rotasviarias	pkrota								
