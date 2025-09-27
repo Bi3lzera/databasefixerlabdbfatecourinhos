@@ -304,15 +304,8 @@ namespace DicionarioDeDadosAdjust
 
                 sql += $"\n\nCOMMENT ON TABLE public.{tabela.name} IS '{tabela.comment}';"; //Gera o comentário da atual tabela (COMENTÁRIO DA TABELA).
 
-                //Loop para gerar os comentários, de cada tabela.
-                foreach (var col in tabela.columns)
-                {
-                    if (!string.IsNullOrEmpty(col.comment)) //Validação para verificar se a variável do comentário da tabela não é nulo ou está vazio.
-                    {
-                        sql +=
-                            $"\n\nCOMMENT ON COLUMN public.{tabela.name}.{col.name} IS '{col.comment}';";
-                    }
-                }
+
+
 
                 fullSql += sql; // Adiciona tudo da variável temporária para a variável principal de comandos SQL.
             }
