@@ -78,3 +78,10 @@ D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinho
 D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.dll
 D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\obj\Debug\net8.0\refint\DicionarioDeDadosAdjust.dll
 D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.pdb
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.exe
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.deps.json
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.runtimeconfig.json
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.dll
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\bin\Debug\net8.0\DicionarioDeDadosAdjust.pdb
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\obj\Debug\net8.0\DicionarioDeDadosAdjust.genruntimeconfig.cache
+D:\Documentos\1 - Gabriel\Aulas\7 Semestre\Lab BD\databasefixerlabdbfatecourinhos\DicionarioDeDadosAdjust\obj\Debug\net8.0\ref\DicionarioDeDadosAdjust.dll

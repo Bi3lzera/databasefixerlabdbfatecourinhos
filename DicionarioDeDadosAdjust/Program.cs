@@ -4,7 +4,8 @@
     {
         public static void Main()
         {
-            App.Run();
+            Menu menu = new Menu();
+            menu.Run();
         }
     }
 }
