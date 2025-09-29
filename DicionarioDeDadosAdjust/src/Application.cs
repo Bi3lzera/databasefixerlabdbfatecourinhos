@@ -97,8 +97,10 @@ namespace DicionarioDeDadosAdjust
         {
             string[]? fileStrings = ReadFile("fktable", "txt");
 
-            if (fileStrings != null) Console.WriteLine("\nLeitura do arquivo fktable.txt foi um sucesso!");
-            else Console.WriteLine("\nLeitura do arquivo falhou. Insira os dados manulamente.");
+            if (fileStrings != null)
+                Console.WriteLine("\nLeitura do arquivo fktable.txt foi um sucesso!");
+            else
+                Console.WriteLine("\nLeitura do arquivo falhou. Insira os dados manulamente.");
 
             Console.WriteLine("\n---------Iniciando importação das FKs---------\n");
             string actualTable = ""; //Cria uma variável para armazenar o nome da tabela atual que está sendo criada as FKs.
@@ -211,8 +213,8 @@ namespace DicionarioDeDadosAdjust
             //Esse loop irá gerar o CREATE TABLE de cada tabela.
             //Existe um adicional de "DROP TABLE" para garantir que seja gerada uma nova tabela e exclua qualquer que existir no BD.
             //Porém, recomenda-se que a database esteja limpa.
-            Console.WriteLine("Gerando SQL...\n");
-            Console.WriteLine("->Configurações da database (START)\n");
+            Console.WriteLine("Gerando SQL:\n");
+            Console.WriteLine("->GERANDO: Configurações da database (START)...");
             string[]? startData = ReadFile("start");
             if (startData != null)
                 foreach (var s in startData)
@@ -220,7 +222,7 @@ namespace DicionarioDeDadosAdjust
                     fullSql += $"{s}\n\n";
                 }
 
-            Console.WriteLine("->Tabelas e Colunas com seus respectivos comentários...");
+            Console.WriteLine("->GERANDO: Tabelas e Colunas com seus respectivos comentários...");
             foreach (var tabela in tabelas)
             {
                 fullSql += tabela.getTableCreateSQL;
@@ -232,31 +234,36 @@ namespace DicionarioDeDadosAdjust
             //Foi criado esse loop, exatamente nesse local, pois é exatamente no local do SQL que ele deve estar, se ele for executado depois de ter
             //criado as PKs e FKs, terá muitos erros de FK não encontrada. Até dá para corrigir isso, colocando os inserts nas posições corretas, porém,
             //isso daria MUITO mais trabalho.
-            Console.WriteLine("->Inserts de dados...");
+            Console.WriteLine("->GERANDO: Inserts de dados...");
             string[]? fileInsertData = ReadFile("insert");
             if (fileInsertData != null)
+            {
+                Console.WriteLine(" ->->Arquivo insert.sql encotrado! Importando...");
                 foreach (string s in fileInsertData)
                 {
                     fullSql += $"\n{s}";
                 }
+            }
             else
-                Console.WriteLine("->->Arquivo insert.txt não foi encotrado. Pulando...");
+            {
+                Console.WriteLine(" ->->Arquivo insert.sql não foi encotrado. Pulando...");
+            }
 
-            Console.WriteLine("->Primary Keys de todas as tabelas...");
+            Console.WriteLine("GERANDO: ->Primary Keys de todas as tabelas...");
             //Loop parar criar as Primary Key, de cada tabela.
             foreach (var tabela in tabelas)
             {
                 fullSql += tabela.getPrimaryKeySQL;
             }
 
-            Console.WriteLine("->Unique Keys de todas as tabelas...");
+            Console.WriteLine("GERANDO: ->Unique Keys de todas as tabelas...");
             //Loop para criar as Unique Keys, de cada coluna, de cada tabela.
             foreach (var tabela in tabelas)
             {
                 fullSql += tabela.getUniqueKeySQL;
             }
 
-            Console.WriteLine("->Foreign Keys de todas as colunas...");
+            Console.WriteLine("GERANDO: ->Foreign Keys de todas as colunas...");
             //Loop para criar as Foreign Keys, de cada coluna, de cada tabela.
             foreach (var tabela in tabelas)
             {
@@ -278,7 +285,9 @@ namespace DicionarioDeDadosAdjust
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Fallha ao encontrar o arquivo {txtName}.{type}, verifique se o arquivo está na pasta files localizada na pasta raiz do programa:\n{ex.Message}");
+                Console.WriteLine(
+                    $"Fallha ao encontrar o arquivo {txtName}.{type}, verifique se o arquivo está na pasta files localizada na pasta raiz do programa:\n{ex.Message}"
+                );
             }
             return null;
         }

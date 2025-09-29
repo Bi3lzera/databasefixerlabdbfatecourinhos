@@ -5,11 +5,13 @@ namespace DicionarioDeDadosAdjust
         App app = new App();
         List<string> menuItens = new List<string>();
 
-        //  
+        //
         //Ponto de partida da aplicação.
         //
         public void Run()
         {
+            AppInit init = new AppInit();
+            init.Init();
             MenuItens();
 
             while (true)
