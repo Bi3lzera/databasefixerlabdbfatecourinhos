@@ -56,7 +56,7 @@ namespace DicionarioDeDadosAdjust
 
         public void GetData()
         {
-            app.tabelas.Clear();
+            if (app.tabelas.Count > 0) app.tabelas.RemoveRange(0, app.tabelas.Count - 1);
             
             Console.WriteLine("\n---------Iniciando importação de tabelas---------\n");
 
