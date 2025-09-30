@@ -154,11 +154,11 @@ INSERT INTO public.areadeestudos VALUES (20, 'Ciências Ambientais', '', '2001-0
 -- Data for Name: armazens; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.armazens VALUES (2, 'Sao Sebastiao', '', 470, ' 1492', 10, '            ', '        ', 50000, '1980-01-01');
-INSERT INTO public.armazens VALUES (5, 'Dois Irmaos', '', 470, ' 234', 10, '            ', '        ', 15000, '1980-01-01');
-INSERT INTO public.armazens VALUES (15, 'Big Warehouse Bahia', 'Galpão Único com pé direito de 15Metros', 240, '456', 55, '123         ', '12313212', 35000, '2010-10-10');
-INSERT INTO public.armazens VALUES (3, 'Rio de Janeiro - 01', 'Galpão Único com pé direito de 15Metros - Lojas Americanas', 470, ' 234', 10, '2174857485  ', '12345678', 20000, '1980-01-01');
-INSERT INTO public.armazens VALUES (1, 'Americanas V', 'Galpão Único com pé direito de 15Metros - Lojas Americanas', 100, 'Km 30', 10, '1145124512  ', '12345678', 150000, '2015-12-07');
+INSERT INTO public.armazens VALUES (2, 'Sao Sebastiao', '', 470, ' 1492', 10, null, '        ', 50000, '1980-01-01');
+INSERT INTO public.armazens VALUES (5, 'Dois Irmaos', '', 470, ' 234', 10, null, '        ', 15000, '1980-01-01');
+INSERT INTO public.armazens VALUES (15, 'Big Warehouse Bahia', 'Galpão Único com pé direito de 15Metros', 240, '456', 55, null, '12313212', 35000, '2010-10-10');
+INSERT INTO public.armazens VALUES (3, 'Rio de Janeiro - 01', 'Galpão Único com pé direito de 15Metros - Lojas Americanas', 470, ' 234', 10, null, '12345678', 20000, '1980-01-01');
+INSERT INTO public.armazens VALUES (1, 'Americanas V', 'Galpão Único com pé direito de 15Metros - Lojas Americanas', 100, 'Km 30', 10, null, '12345678', 150000, '2015-12-07');
 
 
 --

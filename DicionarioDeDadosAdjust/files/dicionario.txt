@@ -1,4 +1,5 @@
 1. agencias		Comentário: Cadastro das agências bancárias onde os funcionários podem ter uma conta.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkfkbanco	character	3	Sim	Parte da CP [pkagencia]=[pkfkbanco,pkagencia] [composta] CE [fk1agencia]=[pkfkbanco] apontando para a tabela bancos[pkbanco]. Pode conter letras e números.
 2	pkagencia	character	6	Sim	Parte da CP [pkagencia]=[pkfkbanco,pkagencia] [composta]. Pode conter letras e números.
 3	txnomeagencia	character varying	250	Sim	Nome da Agência (sem abreviações].
@@ -8,6 +9,7 @@
 7	dtcadagencia	date	NI	Nao	Data de geração do registro.
 					
 2. agenciastels		Comentário: Registro dos telefones de cada autor de publicação.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkagenciatel	integer	NI	Sim	pk da tabela [pkagenciatel]=[pkagenciatel]. Número inteiro sequencial crescente de 1 em 1.
 2	fkbanco	character	3	Sim	fk [fk1agenciatel]=[fkbanco,fkagencia] [composta] apontando para a tabela agencias(pkfkbanco,pkagencia].
 3	fkagencia	character	6	Sim	fk [fk1agenciatel]=[fkbanco,fkagencia] [composta] apontando para a tabela agencias(pkfkbanco,pkagencia].
@@ -17,6 +19,7 @@
 7	dtcadagenciatel	date	NI	Nao	Data de geração do registro.
 					
 3. aplicacoesdascontas		Comentário: Registro das aplicações financeiras de cada conta de funcionarios. É o desmembramento de um relacionamento N:M. Tem uma Chave candidata composta.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pknuaplicdaconta	integer	NI	Sim	pk da Tabela [pkaplicacaodaconta]=[pknuaplicdaconta]. Número inteiro sequencial crescente de 1 em 1.
 2	fkaplicfin	integer	NI	Sim	fk [fk1aplicacaodaconta]=[fkaplicfin] apontando para a tabela aplicacoesfinanceiras[pkaplicfin].
 3	fkbanco	character	3	Sim	fk [fk2aplicacaodaconta]=[fkbanco,fkagencia,fknuconta] [composta] apontando para a tabela contas (pkfkbanco,pkfkagencia,pknuconta] - pode ter letras.
@@ -28,6 +31,7 @@
 9	dtcadaplicconta	date	NI	Sim	Data de geração do registro.
 					
 4. aplicacoesfinanceiras		Comentário: Cadastro de aplicações financeiras que podem ser feitas para as contas de funcionarios.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkaplicfin	smallint	NI	Sim	pk da Tabela [pkaplicacaofinanceira]=[pkaplicfin]. Número inteiro sequencial crescente de 1 em 1.
 2	txnomeaplicacao	character varying	250	Sim	Nome da aplicação financeira
 3	txregrasdaaplicacao	text	NI	Nao	Descrição detalhada das regras de como fazer a aplicação financeira: saldo inicial, datas limites e formas de recuperação.
@@ -36,24 +40,28 @@
 6	dtcadaplicfin	date	NI	Nao	Data de geração do registro.
 					
 5. areadeestudos		Comentário: Cadastro das áreas de estudo de interesse geral, tais como EXATAS, HUMANAS, etc., e suas subdivisões.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkareadeestudo	integer	NI	Sim	pk da Tabela [pkareadeestudo]=[pkareadeestudo]. Número inteiro sequencial crescente de 1 em 1.
 2	txnomearea	character varying	250	Sim	Nome da area de estudo (ou área de conhecimento].
 3	txdescricaoarea	text	NI	Nao	Descrição detalhada de uma Área de Estudo (ou área de conhecimento].
 4	dtcadareaestudo	date	NI	Sim	Data de geração do registro.
 					
 6. areadeestudocursos		Comentário: Registro das áreas de estudos de cada curso. É o desmembramento de um relacionamento N:M.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkareaestcurso	integer	NI	Sim	pk da Tabela [pkareadeestudocurso]=[pkareaestcurso]. Número inteiro sequencial crescente de 1 em 1.
 2	ukcecurso	integer	NI	Sim	Parte da CC [uk1areadeestudocurso]=[ukceareadeestudo,cccecurso], CE [fk1areadeestudocurso]=[cccecurso] apontando para a tabela cursos[pkcurso].
 3	ukceareadeestudo	integer	NI	Sim	Parte da CC [uk1areadeestudocurso]=[ccceareadeestudo,cccecurso], CE [fk2areadeestudocurso]=[ccceareadeestudo] apontando para a tabela areadeestudos[pkareadeestudo].
 4	dtcadareaestcurso	date	NI	Sim	Data de geração do registro.
 					
 7. areadeestudodisciplinas		Comentário: Registro das áreas de estudo de cada disciplina de curso. É o desmembramento de um relacionamento N:M.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkareaestdisciplina	integer	NI	Sim	pk da Tabela [pkareadeestudodisciplina]=[pkareaestdisciplina]. Número inteiro sequencial crescente de 1 em 1.
 2	ukcedisciplina	integer	NI	Sim	Parte da CC [uk1areadeestudodisciplina]=[ccceareadeestudo,cccedisciplina], CE [fk1areadeestudodisciplina]=[cccedisciplina] apontando para a Tabela disciplinas[pkdisciplina].
 3	ukceareadeestudo	integer	NI	Sim	Parte da CC [uk1areadeestudodisciplina]=[ukceareadeestudo,cccedisciplina], CE [fk2areadeestudodisciplina]=[ccceareadeestudo] apontando para a tabela areadeestudos [pkareaestudo].
 4	dtcadareaestdisc	date	NI	Sim	Data de geração do registro.
 					
 8. areadeestudolivros		Comentário: Registro das áreas de estudos de cada livro. É o desmembramento de um relacionamento N:M.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkareaestlivro	integer	NI	Sim	pk da Tabela [pkareadeestudolivro]=[pkareaestlivro]. Número inteiro sequencial crescente de 1 em 1.
 2	ukcelivro	integer	NI	Sim	Parte da CC [uk1areadeestudolivro]=[ccceareadeestudo,cccelivro], CE [fk1areadeestudolivro]=[cccelivro] apontando para a tabela livros[pklivro].
 3	ukceareadeestudo	integer	NI	Sim	Parte da CC [uk1areadeestudolivro]=[ukceareadeestudo,fklivro], CE [fk2areadeestudolivro]=[fkareadeestudo] apontando para tabela areadeestudos[pkareaestudo].
@@ -61,32 +69,36 @@
 5	dtcadareaestlivro	date	NI	Sim	Data de geração do registro.
 					
 9. armazens		Comentário: Cadastro dos Armazens dos clientes para onde as vendas registradas por um funcionario podem ser entregues.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkarmazem	smallint	NI	Sim	Pk da Tabela [pkarmazem]=[pkarmazem]. Número inteiro sequencial crescente de 1 em 1.
 2	txnomearmazem	character varying	50	Sim	Nome curto ou usual do Armazem. Como ele é identificado informalmente.
 3	txdescricaogeral	character varying	500	Nao	Texto com descrição completa do armazém (capacidade, pé direito médio, etc.].
 4	fklogradouro	integer	NI	Nao	fk [fk1armazem]=[fklogradouro] apontando para a tabela logradouros[pklogradouro] onde está o armazém.
 5	txcomplemento	character varying	50	Nao	Texto com o complemento do logradouro da agência bancária (número, andar, etc.]
-6	fkcliente	integer	NI	Sim	fk [fk2armazem]=[fkcliente] apontando para a tabela cliente[pkcliente] que é dono ou aluga o armazém.
-7	nutelefone	character	12	Nao	Número de telefone. Formato OP-DD-TTTT-RRRR, sem o ZERO no início, só numeros.
-8	nucep	character	8	Nao	Número do CEP (somente números].
+6	nucep	character	8	Nao	Número do CEP (somente números].
+7	fkcliente	integer	NI	Sim	fk [fk2armazem]=[fkcliente] apontando para a tabela cliente[pkcliente] que é dono ou aluga o armazém.
+8	nutelefone	character	12	Nao	Número de telefone. Formato OP-DD-TTTT-RRRR, sem o ZERO no início, só numeros.
 9	qtarea	double precision	NI	Sim	Número inteiro indicando a área total.
 10	dtcadarmazem	date	NI	Sim	Data de geração do registro.
 					
 10. armazenstels		Comentário: Cadastro com os números e tipos de telefones dos armazens dos clientes.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkarmazemtel	integer	NI	Sim	pk da Tabela [pkarmazemtel]=[pkarmazemtel]. Número inteiro sequencial crescente de 1 em 1.
 2	fkarmazem	smallint	NI	Sim	fk [fk1armazemtel]=[fkarmazem] apontando para a tabela armazens[pkarmazem].
-4	fkteltipo	smallint	NI	Nao	fk [fk2armazemtel]=[fkteltipo] apontando para a tabela telefonestipos[pkteltipo]
-5	nutelefone	character	15	Sim	Número do telefone referente ao tipo na agência.
-6	txnomecontato	character varying	30	Nao	Nome de uma pessoa que atende como contato no telefone.
-7	dtcadarmazemtel	date	NI	Nao	Data de geração do registro.
+3	fkteltipo	smallint	NI	Nao	fk [fk2armazemtel]=[fkteltipo] apontando para a tabela telefonestipos[pkteltipo]
+4	nutelefone	character	15	Sim	Número do telefone referente ao tipo na agência.
+5	txnomecontato	character varying	30	Nao	Nome de uma pessoa que atende como contato no telefone.
+6	dtcadarmazemtel	date	NI	Nao	Data de geração do registro.
 					
 11. atividades		Comentário: Cadastro com as atividades profissionais desempenhadas por um funcionário.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkatividade	integer	NI	Sim	pk da Tabela [pkatividade]=[pkatividade]. Número inteiro sequencial crescente de 1 em 1.
 2	txnomeatividade	character varying	50	Sim	Nome curto ou usual.
 3	txdescricaoativ	character varying	500	Sim	Descrição detalhada e completa de uma atividade profissional.
 4	dtcadatividade	date	NI	Sim	Data de geração do registro.
 					
 12. atribuicoes		Comentário: Registro dos Professores de cada uma da Disciplinas. É o desmembramento do relacionamento N:M. Tem a CC composta.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkatribuicao	integer	NI	Sim	pk da tabela [pkatribuicao]=[pkatribuicao].
 2	ukceprofessor	smallint	NI	Sim	Parte da CC [uk1atribuicao]=[ccceprofessor,cccedisciplina], CE [fk1atribuicao]=[ccceprofessor] apontando para a tabela professores[pkprofessor].
 3	ukcedisciplina	integer	NI	Sim	Parte da CC [uk1atribuicao]=[ccceprofessor,cccedisciplina], CE [fk2atribuicao]=[cccedisciplina] apontando para a tabela disciplinas[pkdisciplina].
@@ -95,6 +107,7 @@
 6	dtcadatribuicao	date	NI	Nao	Data de geração do registro.
 					
 13. atuacoes		Comentário: Registro das atuações profissionais dos funcionários nos projetos. É um desmembramento de um N:M e tem uma CCK composta.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkatuacao	smallint	NI	Sim	pk da tabela [pkatuacao]=[pkatuacao]. Número inteiro sequencial crescente de 1 em 1.
 2	ukcetarefaprojeto	integer	NI	Sim	Parte da CC [uk1atuacao]=[cccetarefaprojeto,cccefuncionario,ccdtinicio], CE [fk1atuacao]=[cccetarefaprojeto] apontando para a tabela tarefasprojetos[pktarefaprojeto].
 3	ukcefuncionario	smallint	NI	Sim	Parte da CC [uk1atuacao]=[cccetarefaprojeto,cccefuncionario,ccdtinicio], CE [fk2atuacao]=[cccefuncionario] apontando para tabela funcionarios[pkfuncionario].
@@ -104,6 +117,7 @@
 7	dtcadatuacao	date	NI	Sim	Data de geração do registro.
 					
 14. autores		Comentário: Cadastro dos autores de alguma forma de publicação de conhecimento. Na maioria dos casos são autores de livros.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkautor	integer	NI	Sim	pk da Tabela [pkautor]=[pkautor]. Número inteiro sequencial crescente de 1 em 1.
 2	txnomeautor	character	90	Sim	Nome completo do autor.
 3	fklogradouro	integer	NI	Nao	fk [fk1autor]=[fklogradouro] apontando para a visão logrcompleto[pklogradouro] onde está residência do autor.
@@ -113,31 +127,37 @@
 7	dtcadautor	date	NI	Sim	Data de geração do registro.
 					
 15. autorestels		Comentário: Registro dos telefones de cada autor de publicação.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkautortel	integer	NI	Sim	pk da Tabela [pkautortel]=[pkautortel]. Número inteiro sequencial crescente de 1 em 1.
 2	fkautor	integer	NI	Sim	fk [fk1autortel]=[fkautor] apontando para a tabela autores[pkautor]
 3	fkteltipo	smallint	NI	Nao	fk [fk2autortel]=[fkteltipo] apontando para a tabela telefonestipos[pkteltipo].
 4	nutelefone	character	15	Sim	Número do telefone (com operadora e DDD - somente os números]
-5	dtcadautortel	date	NI	Nao	Data de geração do registro.
+5	txnomecontato	character varying	30	Nao	Nome de uma pessoa que atende como contato do autor no telefone.
+6	dtcadautortel	date	NI	Nao	Data de geração do registro.
 					
 16. autorias		Comentário: Registro dos autores de um livro. É o desmembramento de um relacionamento N:M. A Chave Primária é composta.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkautoria	integer	NI	Sim	pk da Tabela [pkautoria]=[pkautoria]. Número inteiro sequencial crescente de 1 em 1.
 2	ukcelivro	integer	NI	Sim	Parte de uma CC composta [uk1autoria]=[fklivro,fkautor], CE [fk1autoria]=[fklivro] apontando para a tabela livros[pklivro].
 3	ukceautor	integer	NI	Sim	Parte de uma CC composta [uk1autoria]=[fklivro,fkautor], CE [fk2autoria]=[fkautor] apontando para a tabela autores[pkautor]
 4	dtcadautoria	date	NI	Sim	Data de geração do registro.
 					
 17. bairros		Comentário: Cadastro dos bairros das cidades.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkbairro	integer	NI	Sim	pk da Tabela [pkbairro]=[pkbairro]. Número inteiro sequencial crescente de 1 em 1.
 2	txnomebairro	character varying	120	Sim	Texto com o nome do bairro da cidade.
 3	fkcidade	integer	NI	Sim	fk [fk1bairro]=[fkcidade] apontando para a tabela cidades[pkcidade] onde se localiza o bairro.
 4	dtcadbairro	date	NI	Sim	Data de geração do registro.
 					
 18. bairroslogradouros		Comentário: Tabela de Ligação entre bairros e logradouros (relacionamento N:M].			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkbairrologradouro	integer	NI	Sim	pk da Tabela [pkbairrologradouro]=[pkbairrologradouro]. Número sequencial crescente de 1 em 1.
 2	fkbairro	integer	NI	Nao	fk [fk1bairrologradouro]=[fkbairro], apontando para tabela bairros[pkbairro].
 3	fklogradouro	integer	NI	Nao	fk [fk2bairrologradouro]=[fklogradouro], apontando para a tabela logradouros[pklogradouro].
 4	dtcadbairrologradouro	date	NI	Nao	Data de geração do registro.
 					
 19. bancos		Comentário: Cadastro dos bancos do sistema financeiro onde funcionarios podem ter contas.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkbanco	character	3	Sim	pk da Tabela [pkbanco]=[pkbanco]. Código do Banco na Federação Brasileira de Bancos.
 2	txnomebanco	character varying	100	Sim	Nome completo do banco (razão social sem abreviações].
 3	dtfundacao	date	NI	Sim	Data de fundação do banco.
@@ -145,16 +165,17 @@
 5	fklogradourosede	integer	NI	Nao	fk [fk1banco]=[fklogradourosede] apontando para a tabela logradouros[pklogradouro] [pklogradouro] com o logradouro da sede do banco.
 6	txcomplemento	character varying	50	Nao	Número do imóvel, localização referencial (outros imóveis próximos].
 7	nucepsede	character	8	Nao	Número do CEP
-9	nucnpjbanco	character	15	Nao	Número do CNPJ do Banco.
-10	txsigla	character varying	25	Nao	Uma sigla que está associada ao banco.
-11	website	character varying	250	Nao	Endereço do WebSite do banco (se houver].
-12	aosituacao	character	1	Nao	Indica se o banco é P-Público, V-Privado, C-Cooperativo, E-Extinto, etc.
-13	aohistorico	character	1	Nao	Indica se o Banco está: A-Ativo, C-Comprado, F-Fundido, L-Liquidado, etc.
-14	qtagencias	smallint	NI	Nao	Quantidade de agências do banco (estimativo].
-15	aocapitalaberto	character	1	Nao	S|N – indicando se banco negocia participação com ações no mercado.
-8	dtcadbanco	date	NI	Sim	Data de geração do registro.
+8	nucnpjbanco	character	15	Nao	Número do CNPJ do Banco.
+9	txsigla	character varying	25	Nao	Uma sigla que está associada ao banco.
+10	website	character varying	250	Nao	Endereço do WebSite do banco (se houver].
+11	aosituacao	character	1	Nao	Indica se o banco é P-Público, V-Privado, C-Cooperativo, E-Extinto, etc.
+12	aohistorico	character	1	Nao	Indica se o Banco está: A-Ativo, C-Comprado, F-Fundido, L-Liquidado, etc.
+13	qtagencias	smallint	NI	Nao	Quantidade de agências do banco (estimativo].
+14	aocapitalaberto	character	1	Nao	S|N – indicando se banco negocia participação com ações no mercado.
+15	dtcadbanco	date	NI	Sim	Data de geração do registro.
 					
 20. bibliografias		Comentário: Registro dos livros da bilbiografia das disciplinas de um curso.É o desmembramento de um N:M. Tem a CP composta.			
+Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkbibliografia	integer	NI	Sim	pk da Tabela [pkbibliografia]=[pkbibliografia]. Número inteiro sequencial iniciando de 1.
 2	ukcedisciplina	smallint	NI	Sim	uk [uk1bibliografia]=[cccedisciplina,cccelivro] [composta] e CE [fk1bibliografia]=[cccedisciplina] apontando para a tabela disciplinas[pkdisciplina].
 3	ukcelivro	integer	NI	Sim	uk [uk1bibliografia]=[cccedisciplina,cccelivro] [composta] e CE [fk2bibliografia]=[cccelivro] apontando para tabela livros[pklivro].
@@ -221,8 +242,8 @@ Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 2	pkfkagencia	character	6	Sim	pk [pkconta]=[pkfkbanco,pkfkagencia,pknuconta] [composta]. CE [fk1conta]=[pkfkbanco,pkfkagencia] [composta] apontando para a tabela agencias(pkfkbanco,pkagencia].
 3	pknuconta	character	6	Sim	pk [pkconta]=[pkfkbanco,pkfkagencia,pknuconta] [composta]. Sequência que identifica a conta (na agencia do banco], pode conter letras.
 4	fkfuncionario	smallint	NI	Nao	fk [fk2conta]=[fkfuncionario] apontando para a tabela funcionario(cpfuncionario] que é o titular da conta.
-6	vlsaldo	double precision	NI	Nao	Valor do saldo da conta atualizado a cada movimentação de valor.
-5	dtcadconta	date	NI	Nao	Data de geração do registro.
+5	vlsaldo	double precision	NI	Nao	Valor do saldo da conta atualizado a cada movimentação de valor.
+6	dtcadconta	date	NI	Nao	Data de geração do registro.
 					
 27. cores		Comentário: Cadastro de cores pantone usados para veículos.			
 Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
@@ -233,7 +254,7 @@ Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 					
 28. corescarros		Comentário: Tabela de Ligação entre cores e carros[visão] (relacionamento N;M].			
 Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
-1	fkcarro	integer	NI	Sim	pk [pkcorcarro]=[fkcarro,corce] [composta]. CE [fk1corcarro]=[fkcarro] apontando para a tabela veiculos[pkveiculo] (visão -> carros].
+1	fkcarro	integer	NI	Sim	pk [pkcorcarro]=[fkcarro,fkcor] [composta]. CE [fk1corcarro]=[fkcarro] apontando para a tabela veiculos[pkveiculo] (visão -> carros].
 2	fkcor	integer	NI	Sim	pk [pkcorcarro]=[fkcarro,fkcor] [composta]. CE [fk2corcarro]=[fkcor] apontando para a tabela cores[pkcor].
 3	dtcadcorveiculo	date	NI	Nao	Data de geração do registro.
 					
@@ -512,9 +533,9 @@ Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 2	txnomeinstituicao	character varying	200	Sim	Nome usual completo (sem abreviações]
 3	fklogradouro	integer	NI	Nao	fk [fk1instituicao]=[fklogradouro] apontando para a tabela logradouros[pklogradouro] onde está a instituição de ensino.
 4	txcomplemento	character varying	25	Nao	Texto com o complemento do logradouro comercial do cliente (número, andar, etc.]
-5	aotipoinstituicao	character	1	Nao	G-pública (Gratuíta] | P-Particular.
-6	dtfundacao	date	NI	Nao	Data de fundação da instituição de ensino.
-7	nucep	character	8	Nao	Número do CEP (somente números].
+5	nucep	character	8	Nao	Número do CEP (somente números].
+6	aotipoinstituicao	character	1	Nao	G-pública (Gratuíta] | P-Particular.
+7	dtfundacao	date	NI	Nao	Data de fundação da instituição de ensino.
 8	dtcadinstensino	date	NI	Sim	Data de geração do registro.
 					
 56. instituicoesdeensinotels		Comentário: Registros dos telefones das Instituições de Ensino.			
@@ -562,7 +583,7 @@ Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pktipologradouro	smallint	NI	Sim	pk da Tabela [pktipologradouro]=[pktipologradouro].
 2	txnometipologradouro	character varying	250	Sim	Nome identificando o Tipo de Logradouro.
-3	dtcadtipologradouro	date	NI	Sim	Data de geração do registro.				
+3	dtcadtipologradouro	date	NI	Sim	Data de geração do registro.
 					
 61. matriculas		Comentário: Cadastro das matrículas dos funcionários em disciplinas que foram atribuídas aos professores. Tem uma chave primária simples, sequencial.			
 Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
@@ -770,7 +791,7 @@ Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 					
 83. planosdesaudetels		Comentário: Registro dos telefones de cada Plano de Saúde.			
 Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
-1	pkplanostel	smallint	NI	Sim	pk da Tabela [pkplanotel]=[pkplanostel].
+1	pkplanostel	smallint	NI	Sim	pk da Tabela [pkplanostel]=[pkplanostel].
 2	fkplanodesaude	smallint	NI	Sim	fk [fk1planotel]=[fkplanodesaude] apontando para a tabela planosdesaude[pkplanodesaude]
 3	fkteltipo	smallint	NI	Nao	fk [fk2planotel]=[fkteltipo] apontando para a tabela telefonestipos[pkteltipo]
 4	nutelefone	character	15	Sim	Número do telefone (somente os números]
@@ -780,7 +801,7 @@ Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 84. produtos		Comentário: Cadastro dos produtos que são feitos e vendidos pela empresa onde o funcionário trabalha.			
 Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkproduto	character	12	Sim	pk da Tabela [pkproduto]=[pkproduto].
-2	txnomeproduto	character varying	128	Nao	Nome completo e usual
+2	txnomeproduto	character varying	250	Nao	Nome completo e usual
 3	vlpreco	numeric	9,2	Nao	Valor do preço
 4	vlprecopromocao	numeric	9,2	Nao	Valor do preço de venda para promoção (com desconto máximo]
 5	vlprecominimo	numeric	9,2	Nao	Valor do preço mínimo (contabilizando os custos de produção]
@@ -861,7 +882,7 @@ Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 3	fkseguradora	smallint	NI	Sim	fk [fk2seguro]=[fkseguradora] apontando para a tabela seguradoras[pkseguradora].
 4	dtcontratacao	date	NI	Sim	Data de contratação do Seguro na Seguradora.
 5	dtlimitecobertura	date	NI	Sim	Data limite da cobertura do seguro.
-6	vlcobertura	double precision	NI	Sim	Valor da cobertura da apólice de seguro.
+6	vlcobertura	double precision		Sim	Valor da cobertura da apólice de seguro.
 7	dtcadseguro	date	NI	Sim	Data de geração do registro.
 					
 93. servicos		Comentário: Cadastro dos serviços oferecidos pelas oficinas que cobrem os sinistros das seguradoras.			
@@ -869,7 +890,7 @@ Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 1	pkservico	integer	NI	Sim	pk da Tabela [pkservico]=[pkservico].
 2	txnomeservico	character varying	90	Nao	Nome simples do serviço com palavras sem abreviações.
 3	txdescricao	character varying	250	Nao	Descrição do que é feito no serviço. Palavras sem abreviações.
-4	vlestimado	double precision	NI	Nao	Valor aproximado do serviço.
+4	vlestimado	double precision		Nao	Valor aproximado do serviço.
 5	dtcadservico	date	NI	Nao	Data de geração do registro.
 					
 94. servicosfeitospor		Comentário: Registros dos Serviços feitos pelas oficinas.			
@@ -888,7 +909,7 @@ Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 3	fkveiculo	integer	NI	Nao	fk [fk2servicoprestado]=[fkveiculo] apontando para a tabela veiculos[pkveiculo], com o código do veículo (ônibus ou carros] no qual se faz um serviço.
 4	txdescricaoproblema	character varying	250	Nao	Descrição do problema apresentado pelo veículo (sem abreviações].
 5	txdescricaosolucao	character varying	250	Nao	Descrição da solução indicada para o veículo (sem abreviações].
-6	vlestimado	double precision	NI	Nao	Valor estimado do serviço realizado no veículo.
+6	vlestimado	double precision		Nao	Valor estimado do serviço realizado no veículo.
 7	dtprevinicio	date	NI	Nao	Data prevista para inicio da prestação de serviço.
 8	dtprevtermino	date	NI	Nao.	Data prevista para término da prestação de serviço.
 9	vlcobrado	numeric	8,2	Nao	Valor final cobrado pela prestação do serviço feito pela oficina no veículo.
@@ -994,3 +1015,4 @@ Pos.	Campo	Tipo do Dado	Tamanho	Requerido	Comentário do campo
 6	hrchegadaprev	time without time zone	NI	Nao	Hora de chegada prevista ao destino da viagem.
 7	dtcadviagem	date	NI	Nao	Data de geração do registro.
 					
+4231					

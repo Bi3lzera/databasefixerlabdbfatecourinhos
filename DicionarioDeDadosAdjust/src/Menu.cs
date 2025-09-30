@@ -34,7 +34,7 @@ namespace DicionarioDeDadosAdjust
                     GerarArquivo();
                     break;
                 case "2":
-                    Console.WriteLine("Saindo...");
+                    GetData();
                     break;
                 default:
                     Console.WriteLine("Opção inválida!");
@@ -45,11 +45,19 @@ namespace DicionarioDeDadosAdjust
         public void MenuItens()
         {
             menuItens.Add("Gerar Arquivo");
-            menuItens.Add("Sair");
+            menuItens.Add("Atualizar dados");
         }
 
         public void GerarArquivo()
         {
+            if (app.tabelas.Count == 0) GetData();
+            app.GenerateSQL(app.tabelas); //Gera o SQL das tabelas carregadas.
+        }
+
+        public void GetData()
+        {
+            app.tabelas.Clear();
+            
             Console.WriteLine("\n---------Iniciando importação de tabelas---------\n");
 
             string[]? fileStrings = app.ReadFile("dicionario", "txt");
@@ -96,8 +104,6 @@ namespace DicionarioDeDadosAdjust
             app.tabelas = app.LoadFKTable(app.tabelas); //Solicita e correga nas tabelas a tabela Foreign Key (FK). A tabela irá carregar a FK já em todas as tabelas anteriormente cadastradas.
 
             Console.WriteLine("\nFinalizado.");
-
-            app.GenerateSQL(app.tabelas); //Gera o SQL das tabelas carregadas.
         }
     }
 }
